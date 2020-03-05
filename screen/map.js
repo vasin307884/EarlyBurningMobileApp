@@ -14,13 +14,13 @@ export default class Mapscreen extends Component {
       region: {
         latitude: 20.050470250943587,
         longitude: 99.87799879855217,
-        latitudeDelta: 0.1922,
-        longitudeDelta: 0.0421
+        latitudeDelta: 0.5922,
+        longitudeDelta: 0.3421
       }
     };
   }
   fetchMarkerData() {
-    fetch('http://192.168.2.33:4000/requests/')
+    fetch('https://chingphaow-application.herokuapp.com/requests/')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
@@ -79,7 +79,7 @@ export default class Mapscreen extends Component {
           })}
           
         </MapView>
-        <View style={{flex:1,paddingLeft:350}}>
+        <View style={{flex:1,paddingRight:350}}>
        <TouchableOpacity>
        <Icon name={'refresh'} size={50}/>
          </TouchableOpacity>

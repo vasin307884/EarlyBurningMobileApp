@@ -90,7 +90,7 @@ export default class Addrequestscreen extends Component {
 
     alert(`คุณได้ส่งคำรองข้อเรียบร้อยแล้ว`);
     this.props.navigation.navigate('Map')
-    fetch('http://192.168.2.33:4000/requests/add', {
+    fetch('https://chingphaow-application.herokuapp.com/requests/add', {
         method: 'POST',
         headers: {
           Accept: 'application/json',

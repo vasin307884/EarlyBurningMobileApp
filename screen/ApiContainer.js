@@ -8,8 +8,7 @@ Text,
 TouchableOpacity,ScrollView,RefreshControl
 } from "react-native";
 import Mycard from '../component/mycard';
-const requesturi = 'http://192.168.2.33:4000/requests/';
-const updatestatus =  'http://192.168.2.33:4000/requests/update'
+const requesturi = 'https://chingphaow-application.herokuapp.com/requests/';
 export default class ApiContainer extends React.Component {
     static navigationOptions =
     {
