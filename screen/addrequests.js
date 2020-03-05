@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button,ActivityInd
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
+import DatePicker from 'react-native-datepicker';
 export default class Addrequestscreen extends Component {
   constructor() {
     super();
@@ -41,6 +42,16 @@ export default class Addrequestscreen extends Component {
 //     return false;
 // }
   componentDidMount() {
+    var date = new Date().getDate(); //Current Date
+    var month = new Date().getMonth() + 1; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    var hours = new Date().getHours(); //Current Hours
+    var min = new Date().getMinutes(); //Current Minutes
+    var sec = new Date().getSeconds(); //Current Seconds
+    this.setState({
+      fromdate:
+        date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec,
+    });
     Geolocation.setRNConfiguration({ authorizationLevel: 'whenInUse', skipPermissionRequests: false, });
     let geoOptions = {
       enableHighAccuracy: true,
@@ -71,6 +82,9 @@ export default class Addrequestscreen extends Component {
         address:this.state.address,
         latitude:this.state.where.lat,
         longitude:this.state.where.lng,
+        fromdate:this.state.fromdate,
+        todate:this.state.date,
+        color:'red',
         statusValue:'กำลังรอเจ้าหน้าที่ตรวจสอบ'
     }
 
@@ -114,9 +128,33 @@ _RenderloadingOverlay = () => {
         />
         <TextInput
           style={styles.textInputStyle}
+          keyboardType={'numeric'}
           placeholder="เบอร์โทร"
           placeholderTextColor="red"
           onChangeText = {(phone) => this.setState({phone:phone})}
+        />
+        <DatePicker
+          style={{width: 200}}
+          date={this.state.date} //initial date from state
+          mode="date" //The enum of date, datetime and time
+          placeholder="กำหนดวันที่"
+          format="DD/MM/YYYY"
+          minDate="01/01/2019"
+          maxDate="01/01/2030"
+          confirmBtnText="Confirm"
+          cancelBtnText="Cancel"
+          customStyles={{
+            dateIcon: {
+              position: 'absolute',
+              left: 0,
+              top: 4,
+              marginLeft: 0
+            },
+            dateInput: {
+              marginLeft: 36
+            }
+          }}
+          onDateChange={(date) => {this.setState({date: date})}}
         />
         <Text style={styles.welcome}>ที่อยู่ปัจจุบันของฉัน</Text>
         {this._RenderloadingOverlay()}

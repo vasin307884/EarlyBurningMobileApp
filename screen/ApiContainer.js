@@ -8,7 +8,8 @@ Text,
 TouchableOpacity,ScrollView,RefreshControl
 } from "react-native";
 import Mycard from '../component/mycard';
-let requesturi = 'http://192.168.2.33:4000/requests/';
+const requesturi = 'http://192.168.2.33:4000/requests/';
+const updatestatus =  'http://192.168.2.33:4000/requests/update'
 export default class ApiContainer extends React.Component {
     static navigationOptions =
     {
@@ -29,7 +30,8 @@ constructor(props) {
   async fetchRequestdata() {
     this.setState({ loading: true});
     try {
-      let res = await fetch(requesturi, { method: 'GET' });
+      let res = await fetch(requesturi, { 
+      method: 'GET' });
       let datas = await res.json();
       console.log("------data--------");
       console.log(datas);
