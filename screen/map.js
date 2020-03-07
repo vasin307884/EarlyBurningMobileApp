@@ -5,17 +5,24 @@ import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Icon from 'react-native-vector-icons/FontAwesome';
 export default class Mapscreen extends Component {
+  static navigationOptions =
+    {
+      title: 'แผนที่'
+    };
   constructor(props) {
     super(props);
 
     this.state = {
       isLoading: true,
       markers: [],
+      page: 1,
+      seed: 1,
+      refreshing: false,
       region: {
         latitude: 20.050470250943587,
         longitude: 99.87799879855217,
-        latitudeDelta: 0.5922,
-        longitudeDelta: 0.3421
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.2421
       }
     };
   }
@@ -26,6 +33,7 @@ export default class Mapscreen extends Component {
         this.setState({
           isLoading: false,
           markers: responseJson.data,
+          refreshing:false
         });
       })
       .catch((error) => {
@@ -71,7 +79,9 @@ export default class Mapscreen extends Component {
                 key={index}
                 coordinate={coords}
                 title={name}
-                description={status}>
+                description={status}
+                phone={marker.phone}
+                >
               </MapView.Marker>
               
               

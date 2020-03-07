@@ -1,91 +1,53 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar,} from 'react-native';
 import Mapscreen from './screen/map';
 import Homescreen from './screen/home';
+import Mainscreen from './screen/main'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
 import Addrequestscreen from './screen/addrequests';
 import ApiContainer from './screen/ApiContainer';
+import MainUserScreen from './screen/mainforuser';
+import MainStaffScreen from './screen/mainforstaff';
+import Loginscreen from './screen/login';
 export default class App extends React.Component {
   render() {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+        <NavigationContainer>
         <AppContainer />
-      </SafeAreaView>
+        </NavigationContainer>
     );
   }
 }
-const TabNavigator = createMaterialBottomTabNavigator({
-  Home: {
-    screen: Homescreen,
-    navigationOptions: {
-      tabBarLabel: "หน้าหลัก",
-      tabBarIcon: ({ tintColor }) => (
-        <View>
-          <Icon style={[{ color: tintColor }]} size={25} name={'ios-home'} />
-        </View>
-      )
-    }
-  },
-  Map: {
-    screen: Mapscreen,
-    navigationOptions: {
-      tabBarLabel: 'แผนที่',
-      tabBarIcon: ({ tintColor }) => (
-        <View>
-          <Icon style={[{ color: tintColor }]} size={25} name={'ios-map'} />
-        </View>
-      )
-    }
-  },
-  Addreq: {
-    screen: Addrequestscreen,
-    navigationOptions: {
-      tabBarLabel: "ส่งคำร้อง",
-      tabBarIcon: ({ tintColor }) => (
-        <View>
-          <Icon style={[{ color: tintColor }]} size={25} name={'ios-add-circle'} />
-        </View>
-      )
-    }
-  },
-  Reqlist: {
-    screen: ApiContainer,
-    navigationOptions: {
-      tabBarLabel: "List",
-      tabBarIcon: ({ tintColor }) => (
-        <View>
-          <Icon style={[{ color: tintColor }]} size={25} name={'ios-albums'} />
-        </View>
-      )
-    }
-  },
-  initialRouteName: 'Home',
-  activeColor: '#f0edf6',
-  inactiveColor: '#3e2465',
-})
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+const StackAppNavigator = createStackNavigator(
+  {
+  Home : Homescreen,
+  Map : Mapscreen,
+  Main : Mainscreen,
+  Reqlist : ApiContainer,
+  Mainuser : MainUserScreen,
+  Mainstaff : MainStaffScreen,
+  Login : Loginscreen,
+},
+{
+  initialRouteName: "Main",
+  defaultNavigationOptions: {
+    header:false,
+    headerStyle: {
+      backgroundColor: "black",
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      justifyContent:'center',
+      alignItems:'center',
+    },
   }
-});
+}
+);
 console.disableYellowBox = true;
-const AppContainer = createAppContainer(TabNavigator);
+const AppContainer = createAppContainer(StackAppNavigator);

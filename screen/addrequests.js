@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button,ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button,ActivityIndicator, Alert,Image } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import DatePicker from 'react-native-datepicker';
+import { Title } from 'react-native-paper';
 export default class Addrequestscreen extends Component {
   constructor() {
     super();
@@ -12,6 +13,14 @@ export default class Addrequestscreen extends Component {
       where: { lat: null, lng: null },
       error: null,
       loading: false,
+      info:{
+        name:null,
+        temp:null,
+        humidity:null,
+        desc:null,
+        wind:null,
+        icon:null,
+      }
     }
   }
   //*Permission Allow*
@@ -41,7 +50,28 @@ export default class Addrequestscreen extends Component {
 
 //     return false;
 // }
+getWeather(){
+  Mycity = "Chiang Rai"
+  fetch(`http://api.openweathermap.org/data/2.5/weather?q=${Mycity}&units=metric&appid=06221fc99afc08d9030d60c36b98c60e`)
+  .then(res=>res.json())
+  .then(data=>{
+    console.log(data)
+    this.setState({
+      info:{
+        name:data.name,
+        temp:data.main.temp,
+        humidity:data.main.humidity,
+        wind:data.wind.speed,
+        desc:data.weather[0].description,
+        icon:data.weather[0].icon
+      }
+    })
+  }).catch(err=>{
+    Alert.alert("Error"+err.message+"โปรดเช็คการเชื่อมต่อเน็ตของท่าน",[{text:"OK"}])
+  })
+}
   componentDidMount() {
+    this.getWeather()
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
     var year = new Date().getFullYear(); //Current Year
@@ -97,8 +127,7 @@ export default class Addrequestscreen extends Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(myRequest),
-      });
-      await this.loadData()
+      }).then(console.log(myRequest))
 }
 _RenderloadingOverlay = () => {
     if (this.state.loading) {
@@ -111,8 +140,16 @@ _RenderloadingOverlay = () => {
     }
   };
   render() {
+    console.log(this.state.info)
     return (
         <View style={styles.MainContainer}>
+{/*           
+            <Title>{this.state.info.name}</Title>
+            <Title>อุณหภูมิ : {this.state.info.temp} °C</Title>
+            <Title>ความชื้นในอากาศ : {this.state.info.humidity} %</Title>
+            <Title>แรงลม : {this.state.info.wind} m/s</Title>
+            <Title>สถานะ : {this.state.info.desc}</Title>
+           */}
         <Text style={styles.txtLogin}>กรอกข้อมูล</Text>
         <TextInput
           style={styles.textInputStyle}
@@ -162,9 +199,18 @@ _RenderloadingOverlay = () => {
         <Text>ลองติจูด : {this.state.where.lng}</Text>
         <View style={{ margin: 25 }}>
           <Button
-          onPress={() => this.submitRequest()}
-            title="ส่งข้อมูล"
-            color="green"
+          title="ส่งข้อมูล"
+          color="green"
+          onPress={() => {
+            if(this.state.info.temp > 50||this.state.info.wind > 10||this.state.info.humidity < 10){
+              alert("ไม่สามารถส่งคำร้องได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง");
+              return;
+            }else if(this.state.name==null||this.state.phone==null||this.state.address==null){
+              alert("กรุณากรอกข้อมูลให้ครบ")
+              return;
+            }
+            this.submitRequest()}
+          }
           />
         </View>
       </View>

@@ -5,14 +5,14 @@ View,
 ActivityIndicator,
 FlatList,
 Text,
-TouchableOpacity,ScrollView,RefreshControl
+TouchableOpacity,ScrollView,RefreshControl,Button
 } from "react-native";
 import Mycard from '../component/mycard';
 const requesturi = 'https://chingphaow-application.herokuapp.com/requests/';
 export default class ApiContainer extends React.Component {
     static navigationOptions =
     {
-      title: 'Personal Profile'
+      title: 'คำร้องขอ'
     };
 constructor(props) {
     super(props);
@@ -22,8 +22,7 @@ constructor(props) {
       error: null,
       page: 1,
       seed: 1,
-      refreshing: false
-
+      refreshing: false,
     }
   }
   async fetchRequestdata() {
@@ -38,7 +37,7 @@ constructor(props) {
         requestsdata: datas,
         //personaldata: datas,
         loading: false,
-        refreshing: false
+        refreshing: false,
       });
     } catch (error) {
       console.log(error);
@@ -49,6 +48,24 @@ constructor(props) {
       })
     }
   }
+  Updatestatus(){
+    let myrequest={
+      id:this.state.id,
+      color:'orange',
+      statusValue:'กำลังดำเนินการชิงเผา'
+    }
+    alert(`คุณได้อัพเดทสถานะเรียบร้อยแล้ว`);
+    this.props.navigation.navigate('Reqlist')
+    fetch('https://chingphaow-application.herokuapp.com/requests/update', {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(myrequest)
+      }).then(console.log(myrequest))
+    }
+
   async componentDidMount() {
     await this.fetchRequestdata();
   }
@@ -66,17 +83,21 @@ constructor(props) {
     return (
       
         <View style={styles.container}>
+
             <FlatList
             refreshing={this.state.refreshing}
             onRefresh={this.handleRefresh}
               data={this.state.requestsdata.data}
               renderItem={({ item }) =>
-                <TouchableOpacity>
-                  <Mycard items={item}/>
-                </TouchableOpacity>
-              } 
+                  <TouchableOpacity onLongPress={()=>{this.Updatestatus()}}>
+                  <Mycard 
+                  items={item}/>
+                  <Text>{item.id}{item.color}</Text>
+                  </TouchableOpacity>
+              }
+               
               />
-
+              
          
         </View>
       
