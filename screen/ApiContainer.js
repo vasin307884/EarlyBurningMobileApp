@@ -48,24 +48,6 @@ constructor(props) {
       })
     }
   }
-  Updatestatus(){
-    let myrequest={
-      id:this.state.id,
-      color:'orange',
-      statusValue:'กำลังดำเนินการชิงเผา'
-    }
-    alert(`คุณได้อัพเดทสถานะเรียบร้อยแล้ว`);
-    this.props.navigation.navigate('Reqlist')
-    fetch('https://chingphaow-application.herokuapp.com/requests/update', {
-        method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(myrequest)
-      }).then(console.log(myrequest))
-    }
-
   async componentDidMount() {
     await this.fetchRequestdata();
   }
@@ -78,6 +60,9 @@ constructor(props) {
       this.fetchRequestdata();
     })
   }
+ async callupdate(item) { 
+   await this.props.navigation.navigate('Update', { id: item.id,items:item,statusValue:item.statusValue,color:item.color })
+  }
   render() {
 
     return (
@@ -89,10 +74,13 @@ constructor(props) {
             onRefresh={this.handleRefresh}
               data={this.state.requestsdata.data}
               renderItem={({ item }) =>
-                  <TouchableOpacity onLongPress={()=>{this.Updatestatus()}}>
+                  <TouchableOpacity onLongPress={()=>{this.callupdate(item)}}>
                   <Mycard 
-                  items={item}/>
-                  <Text>{item.id}{item.color}</Text>
+                  items={item}
+                  id={item.id}
+                  statusValue={item.statusValue}
+                  color={item.color}
+                  />
                   </TouchableOpacity>
               }
                

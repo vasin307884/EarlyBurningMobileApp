@@ -4,8 +4,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar,} from 'react-native';
 import Mapscreen from '../screen/map';
 import Homescreen from '../screen/home';
+import UpdateScreen from '../screen/updatestatus';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createAppContainer } from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import ApiContainer from '../screen/ApiContainer';
 export default class MainStaffScreen extends React.Component {
@@ -55,6 +57,9 @@ const TabNavigator = createMaterialBottomTabNavigator({
         </View>
       )
     }
+  },
+  Update:{
+    screen:UpdateScreen
   },
   initialRouteName: 'Home',
   activeColor: '#f0edf6',

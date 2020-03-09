@@ -80,7 +80,6 @@ export default class Mapscreen extends Component {
                 coordinate={coords}
                 title={name}
                 description={status}
-                phone={marker.phone}
                 >
               </MapView.Marker>
               
