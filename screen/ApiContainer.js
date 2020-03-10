@@ -61,7 +61,7 @@ constructor(props) {
     })
   }
  async callupdate(item) { 
-   await this.props.navigation.navigate('Update', { id: item.id,items:item,statusValue:item.statusValue,color:item.color })
+   await this.props.navigation.navigate('Update', { id: item.id,items:item,statusValue:item.statusValue,color:item.color})
   }
   render() {
 

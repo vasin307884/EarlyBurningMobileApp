@@ -19,6 +19,7 @@ export default class Homescreen extends Component {
       }
     }
   }
+  
 getWeather(){
   Mycity = "Chiang Rai"
   fetch(`http://api.openweathermap.org/data/2.5/weather?q=${Mycity}&units=metric&appid=06221fc99afc08d9030d60c36b98c60e`)
@@ -55,6 +56,7 @@ getWeather(){
             <Title>ความชื้นในอากาศ : {this.state.info.humidity} %</Title>
             <Title>แรงลม : {this.state.info.wind} m/s</Title>
             <Title>สถานะ : {this.state.info.desc}</Title>
+            
       </View>
     );
   }

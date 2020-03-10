@@ -1,25 +1,26 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, Alert, Picker } from 'react-native';
-
-
+// let updatedate = new Date();
 export default class UpdateScreen extends React.Component {
 
     constructor(props) {
         super(props)
+        const { statusValue, color } = this.props.navigation.state.params
+        const item = this.props.navigation.state.params.items
+        this.state = {
+            ustatusValue: statusValue,
+            ucolor: color,
+            uitem: item,
+           
 
-            const {statusValue,color} = this.props.navigation.state.params
-            const item = this.props.navigation.state.params.items
-            this.state={
-                ustatusValue:statusValue,
-                ucolor:color,
-                uitem:item,
-            }
+        }
     }
     Updatestatus() {
         let myrequest = {
             id: this.props.navigation.state.params.id,
             color: this.state.ucolor,
-            statusValue: this.state.ustatusValue
+            statusValue: this.state.ustatusValue,
+            lastupdate: this.state.updatedate
         }
         alert(`คุณได้อัพเดทสถานะเรียบร้อยแล้ว`);
         fetch('https://chingphaow-application.herokuapp.com/requests/update', {
@@ -31,6 +32,18 @@ export default class UpdateScreen extends React.Component {
             body: JSON.stringify(myrequest)
         }).then(console.log(myrequest))
         this.props.navigation.navigate('Reqlist')
+    }
+    componentDidMount() {
+        var date = new Date().getDate(); //Current Date
+        var month = new Date().getMonth() + 1; //Current Month
+        var year = new Date().getFullYear(); //Current Year
+        var hours = new Date().getHours(); //Current Hours
+        var min = new Date().getMinutes(); //Current Minutes
+        var sec = new Date().getSeconds(); //Current Seconds
+        this.setState({
+            updatedate:
+                year + '/' + month + '/' + date + ' ' + hours + ':' + min + ':' + sec,
+        });
     }
     render() {
         return (
@@ -59,6 +72,9 @@ export default class UpdateScreen extends React.Component {
                         <Picker.Item label="green" value="green" />
 
                     </Picker>
+                </View>
+                <View>
+                    <Text>{this.state.updatedate}</Text>
                 </View>
                 <Button
                     title="Update status"

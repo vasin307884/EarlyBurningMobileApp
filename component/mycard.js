@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text, View, FlatList, Image, Button, Picker,Modal,TouchableOpacity} from 'react-native';
+import { Text, View, FlatList, Image, Button, Picker, Modal, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Icon1 from 'react-native-vector-icons/Ionicons'
+import TimeAgo from 'react-native-timeago';
 let Mycard = (props) => {
     //let { id, firstname, lastname, email, phone, photo } = props.items;
-    let {name, phone, address, latitude, longitude, fromdate, todate,statusValue,color} = props.items;
+    let { name, phone, address, latitude, longitude, fromdate, todate, statusValue, color, lastupdate } = props.items;
     return (
         <View style={{ flex: 1, marginTop: 2, borderWidth: 0.5, borderRadius: 20 }}>
             <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -22,7 +23,7 @@ let Mycard = (props) => {
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>ละติจูด : </Text>
                 <Text>{latitude}</Text>
-                <Text style={{paddingLeft:80}}>>>>กดค้างเพื่ออัพเดทสถานะ</Text>
+                <Text style={{ paddingLeft: 80 }}>>>>กดค้างเพื่ออัพเดทสถานะ</Text>
             </View>
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>ลองติจูด : </Text>
@@ -39,6 +40,11 @@ let Mycard = (props) => {
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>สถานะ : </Text>
                 <Text style={{ color: color, fontWeight: 'bold' }}>{statusValue}</Text>
+            </View>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+                <Text style={{ fontSize: 16, fontWeight: 'bold' }}>อัพเดทล่าสุด : </Text>
+                <Text>{lastupdate}  |  </Text>
+                <TimeAgo time={lastupdate} />
             </View>
         </View>
     );

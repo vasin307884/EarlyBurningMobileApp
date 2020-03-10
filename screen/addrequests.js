@@ -80,7 +80,7 @@ getWeather(){
     var sec = new Date().getSeconds(); //Current Seconds
     this.setState({
       fromdate:
-        date + '/' + month + '/' + year + ' ' + hours + ':' + min + ':' + sec,
+        year + '/' + month + '/' + date + ' ' + hours + ':' + min + ':' + sec,
     });
     Geolocation.setRNConfiguration({ authorizationLevel: 'whenInUse', skipPermissionRequests: false, });
     let geoOptions = {
@@ -115,7 +115,8 @@ getWeather(){
         fromdate:this.state.fromdate,
         todate:this.state.date,
         color:'red',
-        statusValue:'กำลังรอเจ้าหน้าที่ตรวจสอบ'
+        statusValue:'กำลังรอเจ้าหน้าที่ตรวจสอบ',
+        lastupdate:'ยังไม่มีการอัพเดท'
     }
 
     alert(`คุณได้ส่งคำรองข้อเรียบร้อยแล้ว`);
@@ -173,11 +174,11 @@ _RenderloadingOverlay = () => {
         <DatePicker
           style={{width: 200}}
           date={this.state.date} //initial date from state
-          mode="date" //The enum of date, datetime and time
+          mode="datetime" //The enum of date, datetime and time
           placeholder="กำหนดวันที่"
-          format="DD/MM/YYYY"
-          minDate="01/01/2019"
-          maxDate="01/01/2030"
+          format="YYYY/MM/DD HH:mm:SS"
+          minDate="2019/01/01"
+          maxDate="2030/01/01"
           confirmBtnText="Confirm"
           cancelBtnText="Cancel"
           customStyles={{
