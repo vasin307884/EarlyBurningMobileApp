@@ -10,6 +10,7 @@ TouchableOpacity,ScrollView,RefreshControl,Button
 import Mycard from '../component/mycard';
 const requesturi = 'https://chingphaow-application.herokuapp.com/requests/';
 export default class ApiContainer extends React.Component {
+  interValID;
     static navigationOptions =
     {
       title: 'คำร้องขอ'
@@ -39,6 +40,7 @@ constructor(props) {
         loading: false,
         refreshing: false,
       });
+      this.intervalID = setTimeout(this.fetchRequestdata.bind(this), 2000);
     } catch (error) {
       console.log(error);
       this.setState({
@@ -47,6 +49,9 @@ constructor(props) {
         refreshing: false
       })
     }
+  }
+  componentWillUnmount(){
+    clearTimeout(this.intervalID);
   }
   async componentDidMount() {
     await this.fetchRequestdata();

@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, Alert, Picker } from 'react-native';
 // let updatedate = new Date();
 export default class UpdateScreen extends React.Component {
-
     constructor(props) {
         super(props)
         const { statusValue, color } = this.props.navigation.state.params
@@ -15,6 +14,26 @@ export default class UpdateScreen extends React.Component {
 
         }
     }
+    getWeather(){
+        Mycity = "Chiang Rai"
+        fetch(`http://api.openweathermap.org/data/2.5/weather?q=${Mycity}&units=metric&appid=06221fc99afc08d9030d60c36b98c60e`)
+        .then(res=>res.json())
+        .then(data=>{
+          console.log(data)
+          this.setState({
+            info:{
+              name:data.name,
+              temp:data.main.temp,
+              humidity:data.main.humidity,
+              wind:data.wind.speed,
+              desc:data.weather[0].description,
+              icon:data.weather[0].icon
+            }
+          })
+        }).catch(err=>{
+          Alert.alert("Error"+err.message+"โปรดเช็คการเชื่อมต่อเน็ตของท่าน",[{text:"OK"}])
+        })
+      }
     Updatestatus() {
         let myrequest = {
             id: this.props.navigation.state.params.id,
@@ -34,6 +53,7 @@ export default class UpdateScreen extends React.Component {
         this.props.navigation.navigate('Reqlist')
     }
     componentDidMount() {
+        this.getWeather()
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth() + 1; //Current Month
         var year = new Date().getFullYear(); //Current Year
@@ -78,7 +98,13 @@ export default class UpdateScreen extends React.Component {
                 </View>
                 <Button
                     title="Update status"
-                    onPress={() => this.Updatestatus(this.state.item)}
+                    onPress={() => {
+                        if(this.state.info.temp > 30||this.state.info.wind > 1.6||this.state.info.humidity < 65){
+                          alert("ไม่สามารถอัพเดทสถานะได้ในขณะนี้ กรุณาเช็คอุณหภูมิ,ความแรงลมและความชื้นอีกครั้ง");
+                          return;
+                        }                        
+                        this.Updatestatus(this.state.item)}
+                    }
                 />
             </View>
         );

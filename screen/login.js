@@ -15,7 +15,7 @@ componentDidMount(){
 loadInitialState = async()=>{
     var value = await AsyncStorage.getItem('users');
     if(value !== null){
-        this.props.navigation.navigate('Mainstaff');
+        // this.props.navigation.navigate('Mainstaff');
     }
 }
 login = () =>{

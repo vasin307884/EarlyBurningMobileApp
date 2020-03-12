@@ -5,6 +5,7 @@ import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Icon from 'react-native-vector-icons/FontAwesome';
 export default class Mapscreen extends Component {
+  interValID;
   static navigationOptions =
     {
       title: 'แผนที่'
@@ -35,10 +36,14 @@ export default class Mapscreen extends Component {
           markers: responseJson.data,
           refreshing:false
         });
+        this.intervalID = setTimeout(this.fetchMarkerData.bind(this), 2000);
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+  componentWillUnmount(){
+    clearTimeout(this.intervalID);
   }
   componentDidMount() {
 
@@ -55,10 +60,17 @@ export default class Mapscreen extends Component {
 
     this.fetchMarkerData();
   }
+  Refreshbutton(){
+        this.setState({
+            forceRefresh: Math.floor(Math.random() * 100)
+        })
+}
+
   render() {
     return (
       <View style={styles.MainContainer}>
         <MapView
+          key={this.state.forceRefresh}
           style={styles.map}
           showsUserLocation={true}
           zoomEnabled={true}
@@ -89,7 +101,7 @@ export default class Mapscreen extends Component {
           
         </MapView>
         <View style={{flex:1,paddingRight:350}}>
-       <TouchableOpacity>
+       <TouchableOpacity onPress={()=>{this.Refreshbutton()}}>
        <Icon name={'refresh'} size={50}/>
          </TouchableOpacity>
          </View>

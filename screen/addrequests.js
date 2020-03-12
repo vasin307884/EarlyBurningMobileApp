@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button,ActivityIndicator, Alert,Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button,ActivityIndicator, Alert,Image,Icon } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
@@ -50,28 +50,7 @@ export default class Addrequestscreen extends Component {
 
 //     return false;
 // }
-getWeather(){
-  Mycity = "Chiang Rai"
-  fetch(`http://api.openweathermap.org/data/2.5/weather?q=${Mycity}&units=metric&appid=06221fc99afc08d9030d60c36b98c60e`)
-  .then(res=>res.json())
-  .then(data=>{
-    console.log(data)
-    this.setState({
-      info:{
-        name:data.name,
-        temp:data.main.temp,
-        humidity:data.main.humidity,
-        wind:data.wind.speed,
-        desc:data.weather[0].description,
-        icon:data.weather[0].icon
-      }
-    })
-  }).catch(err=>{
-    Alert.alert("Error"+err.message+"โปรดเช็คการเชื่อมต่อเน็ตของท่าน",[{text:"OK"}])
-  })
-}
   componentDidMount() {
-    this.getWeather()
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
     var year = new Date().getFullYear(); //Current Year
@@ -144,13 +123,7 @@ _RenderloadingOverlay = () => {
     console.log(this.state.info)
     return (
         <View style={styles.MainContainer}>
-{/*           
-            <Title>{this.state.info.name}</Title>
-            <Title>อุณหภูมิ : {this.state.info.temp} °C</Title>
-            <Title>ความชื้นในอากาศ : {this.state.info.humidity} %</Title>
-            <Title>แรงลม : {this.state.info.wind} m/s</Title>
-            <Title>สถานะ : {this.state.info.desc}</Title>
-           */}
+         
         <Text style={styles.txtLogin}>กรอกข้อมูล</Text>
         <TextInput
           style={styles.textInputStyle}
@@ -196,17 +169,14 @@ _RenderloadingOverlay = () => {
         />
         <Text style={styles.welcome}>ที่อยู่ปัจจุบันของฉัน</Text>
         {this._RenderloadingOverlay()}
-        <Text>ละติจูด : {this.state.where.lat}</Text>
-        <Text>ลองติจูด : {this.state.where.lng}</Text>
+        <Text >ละติจูด : {this.state.where.lat}</Text>
+        <Text >ลองติจูด : {this.state.where.lng}</Text>
         <View style={{ margin: 25 }}>
           <Button
           title="ส่งข้อมูล"
           color="green"
           onPress={() => {
-            if(this.state.info.temp > 50||this.state.info.wind > 10||this.state.info.humidity < 10){
-              alert("ไม่สามารถส่งคำร้องได้ในขณะนี้ กรุณาลองใหม่อีกครั้ง");
-              return;
-            }else if(this.state.name==null||this.state.phone==null||this.state.address==null){
+             if(this.state.name==null||this.state.phone==null||this.state.address==null){
               alert("กรุณากรอกข้อมูลให้ครบ")
               return;
             }
