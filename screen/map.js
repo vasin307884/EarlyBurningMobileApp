@@ -46,7 +46,6 @@ export default class Mapscreen extends Component {
     clearTimeout(this.intervalID);
   }
   componentDidMount() {
-
     Geolocation.getCurrentPosition(
       (position) => {
         console.log(position);
@@ -86,6 +85,7 @@ export default class Mapscreen extends Component {
             const status = `สถานะ : ${marker.statusValue}`;
 
             return (
+
               <MapView.Marker
                 pinColor={marker.color}
                 key={index}

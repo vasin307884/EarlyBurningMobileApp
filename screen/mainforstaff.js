@@ -60,10 +60,7 @@ const TabNavigator = createMaterialBottomTabNavigator({
   },
   Update:{
     screen:UpdateScreen
-  },
-  initialRouteName: 'Home',
-  activeColor: '#f0edf6',
-  inactiveColor: '#3e2465',
+  }
 })
 console.disableYellowBox = true;
 const AppContainer = createAppContainer(TabNavigator);

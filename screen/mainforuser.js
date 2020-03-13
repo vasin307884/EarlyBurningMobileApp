@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Addrequestscreen from '../screen/addrequests';
+import TestMap from '../screen/testmap';
 export default class MainUserScreen extends React.Component {
     static navigationOptions =
     {
@@ -55,9 +56,17 @@ const TabNavigator = createMaterialBottomTabNavigator({
       )
     }
   },
-  initialRouteName: 'Home',
-  activeColor: '#f0edf6',
-  inactiveColor: '#3e2465',
+  Testmap: {
+    screen: TestMap,
+    navigationOptions: {
+      tabBarLabel: 'แผนที่',
+      tabBarIcon: ({ tintColor }) => (
+        <View>
+          <Icon style={[{ color: tintColor }]} size={25} name={'ios-map'} />
+        </View>
+      )
+    }
+  }
 })
 console.disableYellowBox = true;
 const AppContainer = createAppContainer(TabNavigator);

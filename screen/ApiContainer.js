@@ -1,24 +1,24 @@
 import React from "react";
 import {
-StyleSheet,
-View,
-ActivityIndicator,
-FlatList,
-Text,
-TouchableOpacity,ScrollView,RefreshControl,Button
+  StyleSheet,
+  View,
+  ActivityIndicator,
+  FlatList,
+  Text,
+  TouchableOpacity, ScrollView, RefreshControl, Button
 } from "react-native";
 import Mycard from '../component/mycard';
 const requesturi = 'https://chingphaow-application.herokuapp.com/requests/';
 export default class ApiContainer extends React.Component {
   interValID;
-    static navigationOptions =
+  static navigationOptions =
     {
       title: 'คำร้องขอ'
     };
-constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
-      requestsdata:[],
+      requestsdata: [],
       loading: false,
       error: null,
       page: 1,
@@ -27,10 +27,11 @@ constructor(props) {
     }
   }
   async fetchRequestdata() {
-    this.setState({ loading: true});
+    this.setState({ loading: true });
     try {
-      let res = await fetch(requesturi, { 
-      method: 'GET' });
+      let res = await fetch(requesturi, {
+        method: 'GET'
+      });
       let datas = await res.json();
       console.log("------data--------");
       console.log(datas);
@@ -44,72 +45,72 @@ constructor(props) {
     } catch (error) {
       console.log(error);
       this.setState({
-        requestsdata:[],
+        requestsdata: [],
         loading: false,
         refreshing: false
       })
     }
   }
-  componentWillUnmount(){
+  componentWillUnmount() {
     clearTimeout(this.intervalID);
   }
   async componentDidMount() {
     await this.fetchRequestdata();
   }
-  handleRefresh = () =>{
+  handleRefresh = () => {
     this.setState({
       page: 1,
       refreshing: true,
-      seed: this.state.seed +1
-    },() =>{
+      seed: this.state.seed + 1
+    }, () => {
       this.fetchRequestdata();
     })
   }
- async callupdate(item) { 
-   await this.props.navigation.navigate('Update', { id: item.id,items:item,statusValue:item.statusValue,color:item.color})
+  async callupdate(item) {
+    await this.props.navigation.navigate('Update', { id: item.id, items: item, statusValue: item.statusValue, color: item.color })
   }
   render() {
 
     return (
-      
-        <View style={styles.container}>
 
-            <FlatList
-            refreshing={this.state.refreshing}
-            onRefresh={this.handleRefresh}
-              data={this.state.requestsdata.data}
-              renderItem={({ item }) =>
-                  <TouchableOpacity onLongPress={()=>{this.callupdate(item)}}>
-                  <Mycard 
-                  items={item}
-                  id={item.id}
-                  statusValue={item.statusValue}
-                  color={item.color}
-                  />
-                  </TouchableOpacity>
-              }
-               
+      <View style={styles.container}>
+
+        <FlatList
+          refreshing={this.state.refreshing}
+          onRefresh={this.handleRefresh}
+          data={this.state.requestsdata.data}
+          renderItem={({ item }) =>
+            <TouchableOpacity onLongPress={() => { this.callupdate(item) }}>
+              <Mycard
+                items={item}
+                id={item.id}
+                statusValue={item.statusValue}
+                color={item.color}
               />
-              
-         
-        </View>
-      
+            </TouchableOpacity>
+          }
+
+        />
+
+
+      </View>
+
 
     );
   }
 }
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      backgroundColor: '#ecf0f1',
-      padding: 8,
-    },
-    paragraph: {
-      margin: 24,
-      fontSize: 18,
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-  }
-  );
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#ecf0f1',
+    padding: 8,
+  },
+  paragraph: {
+    margin: 24,
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+}
+);
