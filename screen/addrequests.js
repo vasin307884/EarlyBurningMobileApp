@@ -93,6 +93,7 @@ export default class Addrequestscreen extends Component {
         longitude:this.state.where.lng,
         fromdate:this.state.fromdate,
         todate:this.state.date,
+        area:this.state.area,
         color:'red',
         statusValue:'กำลังรอเจ้าหน้าที่ตรวจสอบ',
         lastupdate:'ยังไม่มีการอัพเดท'
@@ -143,6 +144,13 @@ _RenderloadingOverlay = () => {
           placeholder="เบอร์โทร"
           placeholderTextColor="red"
           onChangeText = {(phone) => this.setState({phone:phone})}
+        />
+        <TextInput
+          style={styles.textInputStyle}
+          keyboardType={'numeric'}
+          placeholder="พื้นที่(โดยประมาณ)"
+          placeholderTextColor="red"
+          onChangeText = {(area) => this.setState({area:area})}
         />
         <DatePicker
           style={{width: 200}}

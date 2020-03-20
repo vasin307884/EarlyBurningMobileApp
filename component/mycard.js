@@ -5,7 +5,7 @@ import Icon1 from 'react-native-vector-icons/Ionicons'
 import TimeAgo from 'react-native-timeago';
 let Mycard = (props) => {
     //let { id, firstname, lastname, email, phone, photo } = props.items;
-    let { name, phone, address, latitude, longitude, fromdate, todate, statusValue, color, lastupdate } = props.items;
+    let { name, phone, address, latitude, longitude, fromdate, todate, statusValue, color, lastupdate,area } = props.items;
     return (
         <View style={{ flex: 1, marginTop: 2, borderWidth: 0.5, borderRadius: 20 }}>
             <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -36,6 +36,10 @@ let Mycard = (props) => {
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>วันที่เริ่ม : </Text>
                 <Text>{todate}</Text>
+            </View>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+                <Text style={{ fontSize: 16, fontWeight: 'bold' }}>พื้นที่(โดยประมาณ) : </Text>
+            <Text>{area} ตร.ม.  |  {area/1600} ไร่</Text>
             </View>
             <View style={{ flex: 1, flexDirection: 'row' }}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>สถานะ : </Text>

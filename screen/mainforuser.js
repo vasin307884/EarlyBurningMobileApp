@@ -2,13 +2,12 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar,} from 'react-native';
-import Mapscreen from '../screen/map';
+import Mapuser from './mapforuser';
 import Homescreen from '../screen/home';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Addrequestscreen from '../screen/addrequests';
-import TestMap from '../screen/testmap';
 export default class MainUserScreen extends React.Component {
     static navigationOptions =
     {
@@ -35,7 +34,7 @@ const TabNavigator = createMaterialBottomTabNavigator({
     }
   },
   Map: {
-    screen: Mapscreen,
+    screen: Mapuser,
     navigationOptions: {
       tabBarLabel: 'แผนที่',
       tabBarIcon: ({ tintColor }) => (
@@ -52,17 +51,6 @@ const TabNavigator = createMaterialBottomTabNavigator({
       tabBarIcon: ({ tintColor }) => (
         <View>
           <Icon style={[{ color: tintColor }]} size={25} name={'ios-add-circle'} />
-        </View>
-      )
-    }
-  },
-  Testmap: {
-    screen: TestMap,
-    navigationOptions: {
-      tabBarLabel: 'แผนที่',
-      tabBarIcon: ({ tintColor }) => (
-        <View>
-          <Icon style={[{ color: tintColor }]} size={25} name={'ios-map'} />
         </View>
       )
     }

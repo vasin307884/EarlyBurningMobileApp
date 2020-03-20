@@ -9,15 +9,15 @@ constructor(props){
         password:'',
     }
 }
-// componentDidMount(){
-//     this.loadInitialState().done();
-// }
-// loadInitialState = async()=>{
-//     var value = await AsyncStorage.getItem('users');
-//     if(value !== null){
-//         // this.props.navigation.navigate('Mainstaff');
-//     }
-// }
+componentDidMount(){
+    this.loadInitialState().done();
+}
+loadInitialState = async()=>{
+    var value = await AsyncStorage.getItem('users');
+    if(value !== null){
+        this.props.navigation.navigate('Mainstaff');
+    }
+}
 login = () =>{
     fetch('https://chingphaow-application.herokuapp.com/users',{
         method: 'POST',

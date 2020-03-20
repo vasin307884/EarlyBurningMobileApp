@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar,} from 'react-native';
-import Mapscreen from '../screen/map';
+import Mapstaff from '../screen/mapforstaff';
 import Homescreen from '../screen/home';
 import UpdateScreen from '../screen/updatestatus';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -37,7 +37,7 @@ const TabNavigator = createMaterialBottomTabNavigator({
     }
   },
   Map: {
-    screen: Mapscreen,
+    screen: Mapstaff,
     navigationOptions: {
       tabBarLabel: 'แผนที่',
       tabBarIcon: ({ tintColor }) => (
