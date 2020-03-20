@@ -55,7 +55,7 @@ getWeather(){
             <Title>อุณหภูมิ : {this.state.info.temp} °C</Title>
             <Title>ความชื้นในอากาศ : {this.state.info.humidity} %</Title>
             <Title>แรงลม : {this.state.info.wind} m/s</Title>
-            <Title>สถานะ1 : {this.state.info.desc}</Title>
+            <Title>สถานะ : {this.state.info.desc}</Title>
             
       </View>
     );
