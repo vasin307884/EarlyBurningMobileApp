@@ -2,13 +2,13 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar,} from 'react-native';
-import Mapscreen from '../screen/map';
+import Mapscreen from './mapforuser';
 import Homescreen from '../screen/home';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Addrequestscreen from '../screen/addrequests';
-import TestMap from '../screen/testmap';
+import TestMap from './mapforstaff';
 export default class MainUserScreen extends React.Component {
     static navigationOptions =
     {
