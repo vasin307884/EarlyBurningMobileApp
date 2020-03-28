@@ -13,7 +13,7 @@ import ApiContainer from '../screen/ApiContainer';
 export default class MainStaffScreen extends React.Component {
     static navigationOptions =
     {
-      title: 'ชิงเผา Application'
+      title: 'ชิงเผา Application1'
     };
   render() {
     return (

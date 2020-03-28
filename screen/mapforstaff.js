@@ -97,7 +97,7 @@ export default class Mapstaff extends Component {
                   coordinate={coords}
                 >
                   <MapView.Callout>
-                  <Text>ผู้ส่ง : {marker.name}</Text>
+                  <Text>ผู้ส่ง 1 {marker.name}</Text>
                   <Text>เบอร์โทร : {marker.phone}</Text>
                   <Text>ที่อยู่ : {marker.address}</Text>
                   <Text>วันที่ส่งมา : {marker.fromdate}</Text>
