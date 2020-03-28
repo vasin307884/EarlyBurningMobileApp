@@ -11,7 +11,7 @@ import Addrequestscreen from '../screen/addrequests';
 export default class MainUserScreen extends React.Component {
     static navigationOptions =
     {
-      title: 'ชิงเผา Application1'
+      title: 'ชิงเผา Application'
     };
   render() {
     return (

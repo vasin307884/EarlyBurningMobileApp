@@ -9,7 +9,7 @@ export default class Mapuser extends Component {
   interValID;
   static navigationOptions =
     {
-      title: 'แผนที่1'
+      title: 'แผนที่'
     };
   constructor(props) {
     super(props);

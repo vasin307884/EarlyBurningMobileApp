@@ -13,7 +13,7 @@ export default class ApiContainer extends React.Component {
   interValID;
   static navigationOptions =
     {
-      title: 'คำร้องขอ1'
+      title: 'คำร้องขอ'
     };
   constructor(props) {
     super(props);

@@ -37,7 +37,7 @@ getWeather(){
       }
     })
   }).catch(err=>{
-    Alert.alert("Error"+err.message+"โปรดเช็คการเชื่อมต่อเน็ตของท่าน1",[{text:"OK"}])
+    Alert.alert("Error"+err.message+"โปรดเช็คการเชื่อมต่อเน็ตของท่าน",[{text:"OK"}])
   })
 }
   componentDidMount() {

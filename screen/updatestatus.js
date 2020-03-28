@@ -100,7 +100,7 @@ export default class UpdateScreen extends React.Component {
                     title="Update status"
                     onPress={() => {
                         if(this.state.info.temp > 30||this.state.info.wind > 1.6||this.state.info.humidity < 65){
-                          alert("ไม่สามารถอัพเดทสถานะได้ในขณะนี้ กรุณาเช็คอุณหภูมิ,ความแรงลมและความชื้นอีกครั้ง1");
+                          alert("ไม่สามารถอัพเดทสถานะได้ในขณะนี้ กรุณาเช็คอุณหภูมิ,ความแรงลมและความชื้นอีกครั้ง");
                           return;
                         }                        
                         this.Updatestatus(this.state.item)}

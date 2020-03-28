@@ -95,7 +95,7 @@ export default class Addrequestscreen extends Component {
         todate:this.state.date,
         area:this.state.area,
         color:'red',
-        statusValue:'กำลังรอเจ้าหน้าที่ตรวจสอบ1',
+        statusValue:'กำลังรอเจ้าหน้าที่ตรวจสอบ',
         lastupdate:'ยังไม่มีการอัพเดท'
     }
 
