@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, AsyncStorage } from 'react-native';
+import { StyleSheet, View, Text, AsyncStorage, Image, Dimensions } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/Ionicons'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+const {width:WIDTH}=Dimensions.get('window')
 export default class Loginscreen extends React.Component {
 constructor(props){
     super(props);
@@ -43,20 +47,77 @@ login = () =>{
 }
     render() {
         return (
-            <View style={styles.container}>
+            <View style={{width:'100%', height: '100%', backgroundColor:'#f5efdb'}}>
+                <Image source={require('../immg/Logo.png')} style={{width: 400, height: 350, alignSelf:"center"}}/>
+            <View style={styles.inputcontainer}>
+                <Icon name={'ios-person-outline'} size={28} color={'white'}
+                style={styles.inputicon}/>
                 <TextInput
-                placeholder='Username'
+                style={styles.input}
+                placeholder='รหัสประจำตัวประชาชน'
+                placeholderTextColor={'rgba(255,255,255,0.7)'}
                 onChangeText={(username)=>this.setState({username})}
                 />
+            </View>
+            <View style={styles.inputcontainer}>
+                <Icon name={'ios-Lock-outline'} size={28} color={'white'}
+                style={styles.inputicon}/>
                 <TextInput
-                placeholder='Password'
+                style={styles.input}
+                placeholder='พาสเวิร์ด'
+                placeholderTextColor={'rgba(255,255,255,0.7)'}
                 secureTextEntry={true}
                 onChangeText={(password)=>this.setState({password})}
                 />
-                <Button onPress={this.login}>Login</Button>
+                <TouchableOpacity style={styles.btnEye}>
+                    <Icon name={'ios-eye-outline'} size={28} color={'white'}/>
+                </TouchableOpacity>
+            </View>
+
+                <TouchableOpacity style={styles.btnLogin} onPress={this.login}>
+                    <Text style={styles.text}>เข้าสู่ระบบ</Text>
+                </TouchableOpacity>
+                
             </View>
         );
     }
 }
 const styles = StyleSheet.create({
+    inputcontainer:{
+        marginTop: 10
+    },
+    input:{
+        width: WIDTH-55,
+        height: 45,
+        // borderRadius: 25,
+        fontSize: 16,
+        paddingLeft: 45,
+        backgroundColor: 'rgba(0, 0, 0, 0.35)',
+        color: 'rgba(255, 255, 255, 0.7)',
+        marginHorizontal: 25
+    },
+    inputicon:{
+        position: 'absolute',
+        top: 10,
+        left: 37
+    },
+    btnEye:{
+        position: 'absolute',
+        top: 10,
+        right: 37
+    },
+    btnLogin:{
+        width: WIDTH-55,
+        height: 45,
+        borderRadius: 25,
+        backgroundColor: 'green',
+        justifyContent: 'center',
+        marginTop: 10,
+        marginHorizontal: 25
+    },
+    text:{
+        color: 'white',
+        fontSize: 16,
+        textAlign: 'center'
+    }
 });  
