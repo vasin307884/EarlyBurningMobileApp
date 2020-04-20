@@ -5,9 +5,10 @@ import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import DatePicker from 'react-native-datepicker';
 import { Title } from 'react-native-paper';
+
 export default class Homescreen extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       info:{
         name:null,
@@ -47,7 +48,6 @@ getWeather(){
     console.log(this.state.info)
     return (
         <View style={styles.MainContainer}>
-          
             <Title>{this.state.info.name}</Title>
             <Image style={{width:120,height:120}}
             source={{uri:'http://openweathermap.org/img/w/'+this.state.info.icon+".png"}}

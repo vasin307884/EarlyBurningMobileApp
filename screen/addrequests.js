@@ -23,33 +23,33 @@ export default class Addrequestscreen extends Component {
       }
     }
   }
-  //*Permission Allow*
-//   hasLocationPermission = async () => {
-//     if (Platform.OS === 'ios' ||
-//         (Platform.OS === 'android' && Platform.Version < 23)) {
-//       return true;
-//     }
+  // *Permission Allow*
+  hasLocationPermission = async () => {
+    if (Platform.OS === 'ios' ||
+        (Platform.OS === 'android' && Platform.Version < 23)) {
+      return true;
+    }
 
-//     const hasPermission = await PermissionsAndroid.check(
-//       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-//     );
+    const hasPermission = await PermissionsAndroid.check(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    );
 
-//     if (hasPermission) return true;
+    if (hasPermission) return true;
 
-//     const status = await PermissionsAndroid.request(
-//       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-//     );
+    const status = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    );
 
-//     if (status === PermissionsAndroid.RESULTS.GRANTED) return true;
+    if (status === PermissionsAndroid.RESULTS.GRANTED) return true;
 
-//     if (status === PermissionsAndroid.RESULTS.DENIED) {
-//       ToastAndroid.show('Location permission denied by user.', ToastAndroid.LONG);
-//     } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
-//       ToastAndroid.show('Location permission revoked by user.', ToastAndroid.LONG);
-//     }
+    if (status === PermissionsAndroid.RESULTS.DENIED) {
+      ToastAndroid.show('Location permission denied by user.', ToastAndroid.LONG);
+    } else if (status === PermissionsAndroid.RESULTS.NEVER_ASK_AGAIN) {
+      ToastAndroid.show('Location permission revoked by user.', ToastAndroid.LONG);
+    }
 
-//     return false;
-// }
+    return false;
+}
   componentDidMount() {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
@@ -67,8 +67,8 @@ export default class Addrequestscreen extends Component {
       timeOut: 20000,
       maximumAge: 60 * 60 * 24
     };
-    // const hasLocationPermission = this.hasLocationPermission();
-    // if (!hasLocationPermission) return;
+    const hasLocationPermission = this.hasLocationPermission();
+    if (!hasLocationPermission) return;
     this.setState({ ready: false, error: null,loading: true });
     Geolocation.getCurrentPosition(this.geoSuccess, this.geoFailure, geoOptions);
   }

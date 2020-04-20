@@ -5,6 +5,7 @@ import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import data from '../data/data.json';
+
 export default class Mapstaff extends Component {
   interValID;
   static navigationOptions =
@@ -108,7 +109,7 @@ export default class Mapstaff extends Component {
 
               );
             }})}
-            {/* {data.map((marker, index) => {
+            {data.map((marker, index) => {
               const date = `วันที่ : ${marker.acq_date}`;
               return (
                 <Marker
@@ -122,7 +123,7 @@ export default class Mapstaff extends Component {
                   <Image source={require('../assets/fireicon.png')} style={{ height: 25, width: 25 }} />
                 </Marker>
               );
-            })} */}
+            })}
 
           </MapView>
 
