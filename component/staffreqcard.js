@@ -2,13 +2,13 @@ import React from 'react';
 import { Text, View, FlatList, Image, Button, Picker, Modal, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'
 import Icon1 from 'react-native-vector-icons/Ionicons'
-import { Badge, withBadge } from 'react-native-elements'
+import { Badge,withBadge} from 'react-native-elements'
 import TimeAgo from 'react-native-timeago';
 
 const BadgedIcon = withBadge(1)(Icon)
-let Mycard = (props) => {
+let Staffreqcard = (props) => {
     //let { id, firstname, lastname, email, phone, photo } = props.items;
-    let { staffid, name, phone, address, latitude, longitude, fromdate, todate, statusValue, color, lastupdate, area } = props.items;
+    let { id,name, phone, address, latitude, longitude, fromdate, todate, statusValue, color, lastupdate, area } = props.items;
     return (
         <View style={{ flex: 1, marginTop: 2, borderWidth: 0.5, borderRadius: 20 }}>
             <View style={{ flex: 1, flexDirection: 'row' }}>
@@ -53,9 +53,15 @@ let Mycard = (props) => {
                 <Text>{lastupdate}  |  </Text>
                 <TimeAgo time={lastupdate} />
             </View>
-
-
+            <View style={{ flex: 1, flexDirection: 'row', marginTop: 5}}>
+            <Icon name="minus" size={30} color='black'/>
+                <TouchableOpacity>
+                <Badge value={<Text>ลบออกจากลิสต์ของฉัน</Text>} status="error" />
+                </TouchableOpacity>
+            </View>
+            
+            
         </View>
     );
 }
-export default Mycard;
+export default Staffreqcard;

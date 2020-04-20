@@ -1,42 +1,52 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Alert, Picker } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Alert, Picker, AsyncStorage } from 'react-native';
+import jwt_decode from 'jwt-decode'
 // let updatedate = new Date();
 export default class UpdateScreen extends React.Component {
     constructor(props) {
         super(props)
-        const { statusValue, color } = this.props.navigation.state.params
+        const {statusValue, color } = this.props.navigation.state.params
         const item = this.props.navigation.state.params.items
         this.state = {
             ustatusValue: statusValue,
             ucolor: color,
             uitem: item,
-           
+            id: ''
 
         }
     }
-    getWeather(){
+    getWeather() {
         Mycity = "Chiang Rai"
         fetch(`http://api.openweathermap.org/data/2.5/weather?q=${Mycity}&units=metric&appid=06221fc99afc08d9030d60c36b98c60e`)
-        .then(res=>res.json())
-        .then(data=>{
-          console.log(data)
-          this.setState({
-            info:{
-              name:data.name,
-              temp:data.main.temp,
-              humidity:data.main.humidity,
-              wind:data.wind.speed,
-              desc:data.weather[0].description,
-              icon:data.weather[0].icon
-            }
-          })
-        }).catch(err=>{
-          Alert.alert("Error"+err.message+"โปรดเช็คการเชื่อมต่อเน็ตของท่าน",[{text:"OK"}])
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                this.setState({
+                    info: {
+                        name: data.name,
+                        temp: data.main.temp,
+                        humidity: data.main.humidity,
+                        wind: data.wind.speed,
+                        desc: data.weather[0].description,
+                        icon: data.weather[0].icon
+                    }
+                })
+            }).catch(err => {
+                Alert.alert("Error" + err.message + "โปรดเช็คการเชื่อมต่อเน็ตของท่าน", [{ text: "OK" }])
+            })
+    }
+    loadInitialState = async () => {
+        const token = await AsyncStorage.getItem('usertoken');
+        const decoded = jwt_decode(token)
+        this.setState({
+            id: decoded.id
         })
-      }
+        console.log(decoded);
+    }
     Updatestatus() {
         let myrequest = {
             id: this.props.navigation.state.params.id,
+            staffid : this.state.id,
             color: this.state.ucolor,
             statusValue: this.state.ustatusValue,
             lastupdate: this.state.updatedate
@@ -53,6 +63,7 @@ export default class UpdateScreen extends React.Component {
         this.props.navigation.navigate('Reqlist')
     }
     componentDidMount() {
+        this.loadInitialState().done();
         this.getWeather()
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth() + 1; //Current Month
@@ -69,7 +80,7 @@ export default class UpdateScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={{ alignItems: 'center' }}>
-                    <Text>ไอดี : {this.props.navigation.state.params.id}</Text>
+                    <Text>รีเควสไอดี : {this.props.navigation.state.params.id}</Text>
                 </View>
                 <View>
                     <Text>สถานะ : </Text>
@@ -99,12 +110,17 @@ export default class UpdateScreen extends React.Component {
                 <Button
                     title="Update status"
                     onPress={() => {
-                        if(this.state.info.temp > 30||this.state.info.wind > 1.6||this.state.info.humidity < 65){
-                          alert("ไม่สามารถอัพเดทสถานะได้ในขณะนี้ กรุณาเช็คอุณหภูมิ,ความแรงลมและความชื้นอีกครั้ง");
-                          return;
-                        }                        
-                        this.Updatestatus(this.state.item)}
+                        // if (this.state.info.temp > 30 || this.state.info.wind > 1.6 || this.state.info.humidity < 65) {
+                        //     alert("ไม่สามารถอัพเดทสถานะได้ในขณะนี้ กรุณาเช็คอุณหภูมิ,ความแรงลมและความชื้นอีกครั้ง");
+                         if(this.state.id != this.props.navigation.state.params.staffid && this.props.navigation.state.params.staffid != null ){
+                             alert("ขออภัย , จุดนี้มีเจ้าหน้าที่คนอื่นดูแลอยู่แล้ว")                            
+                            return;
+                        }
+                        this.Updatestatus(this.state.item)
                     }
+                    }
+                // }
+                
                 />
             </View>
         );

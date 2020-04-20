@@ -68,7 +68,7 @@ export default class ApiContainer extends React.Component {
     })
   }
   async callupdate(item) {
-    await this.props.navigation.navigate('Update', { id: item.id, items: item, statusValue: item.statusValue, color: item.color })
+    await this.props.navigation.navigate('Update', { id: item.id, items: item, statusValue: item.statusValue, color: item.color,staffid:item.staffid })
   }
   updateFilter = (filterCrime) => {
     this.setState({ filterCrime: filterCrime })
@@ -102,6 +102,7 @@ export default class ApiContainer extends React.Component {
                 id={item.id}
                 statusValue={item.statusValue}
                 color={item.color}
+                staffid={item.staffid}
               />
             </TouchableOpacity>
             )
