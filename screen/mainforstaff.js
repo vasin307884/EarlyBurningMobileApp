@@ -27,7 +27,17 @@ export default class MainStaffScreen extends React.Component {
     );
   }
 }
-const LoginStack = createStackNavigator({ Login : Loginscreen });
+const MainStack = createStackNavigator({
+  Mainstaff : MainStaffScreen,
+  Login : Loginscreen,
+  Update : UpdateScreen
+},
+{
+  defaultNavigationOptions: {
+    header:false
+  }
+  }
+);
 const TabNavigator = createMaterialBottomTabNavigator({
   Home: {
     screen: Homescreen,
@@ -72,9 +82,6 @@ const TabNavigator = createMaterialBottomTabNavigator({
         </View>
       )
     }
-  },
-  Update: {
-    screen: UpdateScreen
   }
 })
 console.disableYellowBox = true;
@@ -82,7 +89,7 @@ const AppContainer = createAppContainer(
   createSwitchNavigator(
     {
       Tab: TabNavigator,
-      Login: LoginStack
+      Main: MainStack
     }
   )
 );

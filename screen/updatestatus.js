@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode'
 export default class UpdateScreen extends React.Component {
     constructor(props) {
         super(props)
-        const {statusValue, color } = this.props.navigation.state.params
+        const { statusValue, color } = this.props.navigation.state.params
         const item = this.props.navigation.state.params.items
         this.state = {
             ustatusValue: statusValue,
@@ -46,7 +46,7 @@ export default class UpdateScreen extends React.Component {
     Updatestatus() {
         let myrequest = {
             id: this.props.navigation.state.params.id,
-            staffid : this.state.id,
+            staffid: this.state.id,
             color: this.state.ucolor,
             statusValue: this.state.ustatusValue,
             lastupdate: this.state.updatedate
@@ -110,17 +110,19 @@ export default class UpdateScreen extends React.Component {
                 <Button
                     title="Update status"
                     onPress={() => {
-                        // if (this.state.info.temp > 30 || this.state.info.wind > 1.6 || this.state.info.humidity < 65) {
-                        //     alert("ไม่สามารถอัพเดทสถานะได้ในขณะนี้ กรุณาเช็คอุณหภูมิ,ความแรงลมและความชื้นอีกครั้ง");
-                         if(this.state.id != this.props.navigation.state.params.staffid && this.props.navigation.state.params.staffid != null ){
-                             alert("ขออภัย , จุดนี้มีเจ้าหน้าที่คนอื่นดูแลอยู่แล้ว")                            
+                        if (this.state.info.temp > 30 || this.state.info.wind > 1.6 || this.state.info.humidity < 65) {
+                            alert("ไม่สามารถอัพเดทสถานะได้ในขณะนี้ กรุณาเช็คอุณหภูมิ,ความแรงลมและความชื้นอีกครั้ง");
+                            return;
+                        }
+                        else if (this.state.id != this.props.navigation.state.params.staffid && this.props.navigation.state.params.staffid != null) {
+                            alert("ขออภัย , จุดนี้มีเจ้าหน้าที่คนอื่นดูแลอยู่แล้ว")
                             return;
                         }
                         this.Updatestatus(this.state.item)
+                            return;
+                        }
                     }
-                    }
-                // }
-                
+                 
                 />
             </View>
         );
