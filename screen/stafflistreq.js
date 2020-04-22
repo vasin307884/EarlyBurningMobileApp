@@ -1,30 +1,24 @@
-import React from "react";
-import {
-  StyleSheet,
-  View,
-  ActivityIndicator,
-  FlatList,
-  Text,
-  TouchableOpacity, ScrollView, RefreshControl, Button,Picker
-} from "react-native";
-import Mycard from '../component/mycard';
+import React, { Component } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button, ActivityIndicator, Alert, Image, AsyncStorage,FlatList,Picker } from 'react-native';
+import jwt_decode from 'jwt-decode'
+import Staffreqcard from '../component/staffreqcard';
 const requesturi = 'https://chingphaow-application.herokuapp.com/requests/';
-export default class ApiContainer extends React.Component {
+export default class Staffreq extends Component {
   interValID;
-  static navigationOptions =
-    {
-      title: 'คำร้องขอ'
-    };
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       requestsdata: [],
       loading: false,
-      error: null,
       page: 1,
       seed: 1,
       refreshing: false,
-      filterCrime: ''
+      filterCrime: '',
+      id: '',
+      first_name: '',
+      last_name: '',
+      email: '',
+      errors: {}
     }
   }
   async fetchRequestdata() {
@@ -55,7 +49,19 @@ export default class ApiContainer extends React.Component {
   componentWillUnmount() {
     clearTimeout(this.intervalID);
   }
+  loadInitialState = async () => {
+    const token = await AsyncStorage.getItem('usertoken');
+    const decoded = jwt_decode(token)
+    this.setState({
+      id: decoded.id,
+      first_name: decoded.first_name,
+      last_name: decoded.last_name,
+      email: decoded.email
+    })
+    console.log(decoded);
+  }
   async componentDidMount() {
+    this.loadInitialState().done();
     await this.fetchRequestdata();
   }
   handleRefresh = () => {
@@ -67,18 +73,27 @@ export default class ApiContainer extends React.Component {
       this.fetchRequestdata();
     })
   }
-  async callupdate(item) {
-    await this.props.navigation.navigate('Update', { id: item.id, items: item, statusValue: item.statusValue, color: item.color,staffid:item.staffid })
-  }
   updateFilter = (filterCrime) => {
     this.setState({ filterCrime: filterCrime })
  }
+ async callupdate(item) {
+  await this.props.navigation.navigate('Update', { id: item.id, items: item, statusValue: item.statusValue, color: item.color,staffid:item.staffid })
+}
+  logOut(e) {
+    e.preventDefault()
+    AsyncStorage.removeItem('usertoken')
+    this.props.navigation.navigate('Login')
+    alert("ออกจากระบบ!");
+  }
   render() {
-
     return (
-
-      <View style={styles.container}>
+      <View style={styles.MainContainer}>
+        <Text>ชื่อ : {this.state.first_name}</Text>
+        <Text>อีเมล : {this.state.email}</Text>
+        <Button title="ออกจากระบบ" onPress={this.logOut.bind(this)} />
+        <View style={styles.container}>
         <View>
+          <Text>จุดที่รับผิดชอบ</Text>
           <Picker
             selectedValue={this.state.filterCrime}
             onValueChange={this.updateFilter} >
@@ -94,38 +109,38 @@ export default class ApiContainer extends React.Component {
           onRefresh={this.handleRefresh}
           data={this.state.requestsdata.data}
           renderItem={({ item }) =>{
-          if ( !this.state.filterCrime || item.statusValue == this.state.filterCrime ) {      
+          if ( !this.state.filterCrime || item.statusValue == this.state.filterCrime ) {
+            if(item.staffid == this.state.id){      
             return (
-            <TouchableOpacity onLongPress={() => { this.callupdate(item) }}>
-              <Mycard
+              <TouchableOpacity onLongPress={() => { this.callupdate(item) }}>
+              <Staffreqcard
                 items={item}
                 id={item.id}
                 statusValue={item.statusValue}
                 color={item.color}
                 staffid={item.staffid}
               />
-            </TouchableOpacity>
+              </TouchableOpacity>
             )
-          }}}
+          }}}}
         />
       </View>
-
-
+      </View>
     );
   }
 }
 const styles = StyleSheet.create({
+  MainContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#ecf0f1',
     padding: 8,
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-}
-);
+  }
+});
