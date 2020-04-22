@@ -103,6 +103,7 @@ export default class Mapstaff extends Component {
                   <Text>ที่อยู่ : {marker.address}</Text>
                   <Text>วันที่ส่งมา : {marker.fromdate}</Text>
                   <Text style={{color:marker.color}}>สถานะ : {marker.statusValue}</Text>
+                  <Text style={{color:'blue'}}>เจ้าหน้าที่ที่ดูแล : {marker.first_name} {marker.last_name}</Text>
                 </MapView.Callout>
                 </MapView.Marker>
 
