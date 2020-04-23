@@ -88,13 +88,34 @@ export default class Staffreq extends Component {
   render() {
     return (
       <View style={styles.MainContainer}>
-        <Text>ชื่อ : {this.state.first_name}</Text>
-        <Text>อีเมล : {this.state.email}</Text>
+        <Image source={require('../immg/use.png')}
+            style={styles.ImgIcon}/>
+      <View>
+        <Text style={styles.infoadmin}>ชื่อ : {this.state.first_name}</Text>
+      </View>
+        <Image source={require('../immg/Email.png')}
+            style={styles.ImgIcon2}/>
+      <View>
+        <Text style={styles.infoadmin}>อีเมล : {this.state.email}</Text>
+      </View>
+        <View style={{marginTop:15,
+        marginLeft:30,
+        marginRight:30,}}>
         <Button title="ออกจากระบบ" onPress={this.logOut.bind(this)} />
+        </View>
         <View style={styles.container}>
-        <View>
-          <Text>จุดที่รับผิดชอบ</Text>
-          <Picker
+        <View style={{marginBottom: 10}}>
+          <Text style={{fontSize:19, fontWeight:'bold'}}>จุดที่รับผิดชอบ</Text>
+        </View>
+          <View style={{backgroundColor:'#004d00',shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+    elevation: 24,}}>
+          <Picker style={{color:'white'}}
             selectedValue={this.state.filterCrime}
             onValueChange={this.updateFilter} >
             <Picker.Item label="ทั้งหมด" value={this.state.statusValue} />
@@ -136,11 +157,32 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+    backgroundColor: '#ecd9c6'
   },
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#ecd9c6',
     padding: 8,
+  },
+  infoadmin:{
+    paddingLeft: 110,
+    marginTop: 15,
+    marginBottom: 15
+  },
+  ImgIcon:{
+    height: 35,
+    width: 35,
+    position: 'absolute',
+    top: 8,
+    left: 60
+  },
+  ImgIcon2:{
+    height: 35,
+    width: 35,
+    position: 'absolute',
+    top: 58,
+    left: 60
   }
+
 });

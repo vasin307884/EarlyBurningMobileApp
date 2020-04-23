@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, FlatList, Image, Button, Picker, Modal, TouchableOpacity } from 'react-native';
+import { Text, View, FlatList, Image, Button, Picker, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'
 import Icon1 from 'react-native-vector-icons/Ionicons'
 import { Badge,withBadge} from 'react-native-elements'
@@ -10,58 +10,81 @@ let Staffreqcard = (props) => {
     //let { id, firstname, lastname, email, phone, photo } = props.items;
     let { id,name, phone, address, latitude, longitude, fromdate, todate, statusValue, color, lastupdate, area } = props.items;
     return (
-        <View style={{ flex: 1, marginTop: 2, borderWidth: 0.5, borderRadius: 20 }}>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+        <View style={styles.InfoCard}>
+            <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>ชื่อผู้ส่ง : </Text>
-                <Text>{name}</Text>
+                <Text style={styles.RequestInfo}>{name}</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>เบอร์โทร : </Text>
-                <Text>{phone}</Text>
+                <Text style={styles.RequestInfo}>{phone}</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>ที่อยู่ : </Text>
-                <Text>{address}</Text>
+                <Text style={styles.RequestInfo}>{address}</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>ละติจูด : </Text>
-                <Text>{latitude}</Text>
-                <Text style={{ paddingLeft: 80 }}>>>>กดค้างเพื่ออัพเดทสถานะ</Text>
+                <Text style={styles.RequestInfo}>{latitude}</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>ลองติจูด : </Text>
-                <Text>{longitude}</Text>
+                <Text style={styles.RequestInfo}>{longitude}</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>วันที่ส่งมา : </Text>
-                <Text>{fromdate}</Text>
+                <Text style={styles.RequestInfo}>{fromdate}</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>วันที่เริ่ม : </Text>
-                <Text>{todate}</Text>
+                <Text style={styles.RequestInfo}>{todate}</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>พื้นที่(โดยประมาณ) : </Text>
-                <Text>{area} ตร.ม.  |  {area / 1600} ไร่</Text>
+                <Text style={styles.RequestInfo}>{area} ตร.ม.  |  {area / 1600} ไร่</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>สถานะ : </Text>
                 <Text style={{ color: color, fontWeight: 'bold' }}>{statusValue}</Text>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>อัพเดทล่าสุด : </Text>
-                <Text>{lastupdate}  |  </Text>
-                <TimeAgo time={lastupdate} />
+                <Text style={styles.RequestInfo}>{lastupdate}  |  </Text>
+                <TimeAgo style={styles.RequestInfo} time={lastupdate} />
             </View>
-            <View style={{ flex: 1, flexDirection: 'row', marginTop: 5}}>
-            <Icon name="minus" size={30} color='black'/>
-                <TouchableOpacity>
-                <Badge value={<Text>ลบออกจากลิสต์ของฉัน</Text>} status="error" />
-                </TouchableOpacity>
-            </View>
+            
             
             
         </View>
     );
 }
 export default Staffreqcard;
+
+const styles=StyleSheet.create({
+    InfoCard:{
+        marginTop: 10,
+        flex: 1, 
+        // borderWidth: 1, 
+        borderRadius: 10,
+        backgroundColor: '#ecffb3',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+    
+        elevation: 24,
+    },
+    Info:{
+        flex: 1, 
+        flexDirection: 'row',
+        paddingLeft: 10,
+        marginTop: 10,
+        marginBottom: 5
+    },
+    RequestInfo:{
+        fontSize: 17,
+    }
+})

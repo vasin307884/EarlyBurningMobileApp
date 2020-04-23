@@ -104,9 +104,9 @@ export default class Loginscreen extends React.Component {
                     onChangeText={(password) => this.setState({ password:password })}
                 />
             </View>
-                <TouchableOpacity style={styles.btnLogin} onPress={this.onSubmit}>
+                <Button style={styles.btnLogin} onPress={this.onSubmit}>
                     <Text style={styles.text}>เข้าสู่ระบบ</Text>
-                </TouchableOpacity>
+                </Button>
             </View>
         );
     }

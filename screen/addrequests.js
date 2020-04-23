@@ -5,6 +5,8 @@ import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import DatePicker from 'react-native-datepicker';
 import { Title } from 'react-native-paper';
+import {Platform,PermissionsAndroid,ToastAndroid} from 'react-native';
+
 export default class Addrequestscreen extends Component {
   constructor() {
     super();
@@ -61,18 +63,18 @@ export default class Addrequestscreen extends Component {
       fromdate:
         year + '/' + month + '/' + date + ' ' + hours + ':' + min + ':' + sec,
     });
-    Geolocation.setRNConfiguration({ authorizationLevel: 'whenInUse', skipPermissionRequests: false, });
+    Geolocation.setRNConfiguration({ authorizationLevel: 'whenInUse', skipPermissionRequests: true, });
     let geoOptions = {
       enableHighAccuracy: true,
       timeOut: 20000,
       maximumAge: 60 * 60 * 24
     };
-    const hasLocationPermission = this.hasLocationPermission();
-    if (!hasLocationPermission) return;
     this.setState({ ready: false, error: null,loading: true });
     Geolocation.getCurrentPosition(this.geoSuccess, this.geoFailure, geoOptions);
   }
   geoSuccess = (position) => {
+    const hasLocationPermission = this.hasLocationPermission();
+    if (!hasLocationPermission) return;
     console.log(position.coords.latitude);
     console.log(position.coords.longitude);
     this.setState({
@@ -121,7 +123,7 @@ _RenderloadingOverlay = () => {
     }
   };
   render() {
-    console.log(this.state.info)
+    // console.log(this.state.info)
     return (
         <View style={styles.MainContainer}>
 
