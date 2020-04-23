@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, ImageComponent, Image } from 'react-native';
 import { Button } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { createStackNavigator } from '@react-navigation/stack';
+
+
 
 export default class Mainscreen extends React.Component {
     static navigationOptions =

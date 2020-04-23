@@ -124,36 +124,56 @@ _RenderloadingOverlay = () => {
     console.log(this.state.info)
     return (
         <View style={styles.MainContainer}>
-         
+
         <Text style={styles.txtLogin}>กรอกข้อมูล</Text>
+        <View>
+          <Text style={{paddingLeft:20,fontSize:15, marginTop:5, color:'#261a0d'}}>ชื่อจริง-นามสกุล</Text>
         <TextInput
           style={styles.textInputStyle}
+          backgroundColor='#d2a679'
+          paddingLeft= {45}
           placeholder="ชื่อ-นามสกุล"
-          placeholderTextColor="red"
+          placeholderTextColor='#f2e6d9'
           onChangeText = {(name) => this.setState({name:name})}
         />
+        </View>
+        <View>
+        <Text style={{paddingLeft:20,fontSize:15, marginTop:5, color:'#261a0d'}}>เบอร์โทรติดต่อ</Text>
         <TextInput
           style={styles.textInputStyle}
-          placeholder="ที่อยู่"
-          placeholderTextColor="red"
-          onChangeText = {(address) => this.setState({address:address})}
-        />
-        <TextInput
-          style={styles.textInputStyle}
+          backgroundColor='rgba(0, 0, 0, 0.35)'
+          paddingLeft= {45}
           keyboardType={'numeric'}
           placeholder="เบอร์โทร"
-          placeholderTextColor="red"
+          placeholderTextColor='#f2e6d9'
           onChangeText = {(phone) => this.setState({phone:phone})}
         />
+        </View>
+        <View>
+        <Text style={{paddingLeft:20,fontSize:15, marginTop:5, color:'#261a0d'}}>ที่อยู่ปัจจุบัน</Text>
         <TextInput
           style={styles.textInputStyle}
+          backgroundColor='#d2a679'
+          paddingLeft= {45}
+          placeholder="ที่อยู่"
+          placeholderTextColor='#f2e6d9'
+          onChangeText = {(address) => this.setState({address:address})}
+        />
+        </View>
+        <View>
+        <Text style={{paddingLeft:20,fontSize:15, marginTop:5, color:'#261a0d'}}>ขนาดพื้นที่</Text>
+        <TextInput
+          style={styles.textInputStyle}
+          backgroundColor='rgba(0, 0, 0, 0.35)'
+          paddingLeft= {45}
           keyboardType={'numeric'}
-          placeholder="พื้นที่(โดยประมาณ)"
-          placeholderTextColor="red"
+          placeholder="พื้นที่ (โดยประมาณ)"
+          placeholderTextColor='#f2e6d9'
           onChangeText = {(area) => this.setState({area:area})}
         />
+        </View>
         <DatePicker
-          style={{width: 200}}
+          style={{width: 250, marginTop:15,}}
           date={this.state.date} //initial date from state
           mode="datetime" //The enum of date, datetime and time
           placeholder="กำหนดวันที่"
@@ -170,7 +190,8 @@ _RenderloadingOverlay = () => {
               marginLeft: 0
             },
             dateInput: {
-              marginLeft: 36
+              marginLeft: 36,
+              backgroundColor:'#261a0d'
             }
           }}
           onDateChange={(date) => {this.setState({date: date})}}
@@ -179,7 +200,7 @@ _RenderloadingOverlay = () => {
         {this._RenderloadingOverlay()}
         <Text >ละติจูด : {this.state.where.lat}</Text>
         <Text >ลองติจูด : {this.state.where.lng}</Text>
-        <View style={{ margin: 25 }}>
+        <View style={{ margin: 25, width:270, height:40 }}>
           <Button
           title="ส่งข้อมูล"
           color="green"
@@ -206,6 +227,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'flex-end',
+    backgroundColor:'#f5efdb'
   },
   welcome: {
     fontSize: 20,
@@ -213,17 +235,24 @@ const styles = StyleSheet.create({
     margin: 10
   },
   textInputStyle: {
-    borderColor: '#9a73ef',
-    borderWidth: 1,
     height: 40,
+    width: 270,
     marginLeft: 20,
     marginRight: 20,
     padding: 10,
-    marginTop: 8
+    marginTop: 8,
+    borderRadius: 25,
   },
   txtLogin: {
     padding: 20,
     fontWeight: "bold",
     fontSize: 20
+  },
+  inicon:{
+    width: 25,
+    height: 25,
+    position: 'absolute',
+    top: 10,
+    left: 37
   }
 });  

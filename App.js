@@ -11,6 +11,7 @@ import { createMaterialBottomTabNavigator } from 'react-navigation-material-bott
 import { createStackNavigator } from 'react-navigation-stack';
 import Addrequestscreen from './screen/addrequests';
 import ApiContainer from './screen/ApiContainer';
+import Addrequestscreen from './screen/addrequests';
 import MainUserScreen from './screen/mainforuser';
 import MainStaffScreen from './screen/mainforstaff';
 import Loginscreen from './screen/login';
@@ -26,7 +27,6 @@ export default class App extends React.Component {
 const StackAppNavigator = createStackNavigator(
   {
   Home : Homescreen,
-  Map : Mapuser,
   Main : Mainscreen,
   Reqlist : ApiContainer,
   Mainuser : MainUserScreen,

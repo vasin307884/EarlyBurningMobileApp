@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { createAppContainer } from 'react-navigation';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Addrequestscreen from '../screen/addrequests';
+
 export default class MainUserScreen extends React.Component {
     static navigationOptions =
     {

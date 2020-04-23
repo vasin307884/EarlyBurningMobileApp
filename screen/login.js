@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, AsyncStorage, } from 'react-native';
+import { StyleSheet, View, Text, AsyncStorage, Dimensions, Image } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { login } from '../component/UserFunctions'
+import Icon from 'react-native-vector-icons/Ionicons'
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+const {width:WIDTH}=Dimensions.get('window')
 export default class Loginscreen extends React.Component {
     // constructor(props){
     //     super(props);
@@ -79,7 +83,7 @@ export default class Loginscreen extends React.Component {
             <View style={{width:'100%', height: '100%', backgroundColor:'#f5efdb'}}>
                 <Image source={require('../immg/Logo.png')} style={{width: 400, height: 350, alignSelf:"center"}}/>
             <View style={styles.inputcontainer}>
-            <Icon name={'ios-person-outline'} size={28} color={'white'}
+            <Image source={require('../immg/use.png')}
             style={styles.inputicon}/>
                 <TextInput
                     style={styles.input}
@@ -88,20 +92,18 @@ export default class Loginscreen extends React.Component {
                     value={this.state.email}
                     onChangeText={(email) => this.setState({ email:email })}
                 />
-                </View>
-                <View style={styles.inputcontainer}>
-                <Icon name={'ios-Lock-outline'} size={28} color={'white'}
-                style={styles.inputicon}/>
+            </View>
+            <View style={styles.inputcontainer}>
+            <Image source={require('../immg/lock.png')}
+            style={styles.inputicon}/>
                 <TextInput
+                    style={styles.input}
                     placeholder='Password'
                     secureTextEntry={true}
                     value={this.state.password}
                     onChangeText={(password) => this.setState({ password:password })}
                 />
-                <TouchableOpacity style={styles.btnEye}>
-                    <Icon name={'ios-eye-outline'} size={28} color={'white'}/>
-                </TouchableOpacity>
-                </View>
+            </View>
                 <TouchableOpacity style={styles.btnLogin} onPress={this.onSubmit}>
                     <Text style={styles.text}>เข้าสู่ระบบ</Text>
                 </TouchableOpacity>
@@ -124,15 +126,17 @@ const styles = StyleSheet.create({
         marginHorizontal: 25
     },
     inputicon:{
+        width: 25,
+        height: 25,
         position: 'absolute',
         top: 10,
         left: 37
     },
-    btnEye:{
-        position: 'absolute',
-        top: 10,
-        right: 37
-    },
+    // btnEye:{
+    //     position: 'absolute',
+    //     top: 10,
+    //     right: 37
+    // },
     btnLogin:{
         width: WIDTH-55,
         height: 45,

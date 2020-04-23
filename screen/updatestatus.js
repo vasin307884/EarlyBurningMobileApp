@@ -10,6 +10,8 @@ export default class UpdateScreen extends React.Component {
             ustatusValue: statusValue,
             ucolor: color,
             uitem: item,
+            id: '',
+            staff_id: '',
            
 
         }
@@ -34,9 +36,22 @@ export default class UpdateScreen extends React.Component {
           Alert.alert("Error"+err.message+"โปรดเช็คการเชื่อมต่อเน็ตของท่าน",[{text:"OK"}])
         })
       }
+
+      loadInitialState = async () => {
+        const token = await AsyncStorage.getItem('usertoken');
+        const decoded = jwt_decode(token)
+        this.setState({
+            id: decoded.id,
+            staff_id: decoded.staff_id
+        })
+        console.log(decoded);
+    }
+
     Updatestatus() {
         let myrequest = {
             id: this.props.navigation.state.params.id,
+            staffid: this.state.id,
+            staffid: this.state.staff_id,
             color: this.state.ucolor,
             statusValue: this.state.ustatusValue,
             lastupdate: this.state.updatedate
@@ -69,7 +84,7 @@ export default class UpdateScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={{ alignItems: 'center' }}>
-                    <Text>ไอดี : {this.props.navigation.state.params.id}</Text>
+                    <Text>รีเควสไอดี : {this.props.navigation.state.params.id}</Text>
                 </View>
                 <View>
                     <Text>สถานะ : </Text>
@@ -102,14 +117,23 @@ export default class UpdateScreen extends React.Component {
                         if(this.state.info.temp > 30||this.state.info.wind > 1.6||this.state.info.humidity < 65){
                           alert("ไม่สามารถอัพเดทสถานะได้ในขณะนี้ กรุณาเช็คอุณหภูมิ,ความแรงลมและความชื้นอีกครั้ง");
                           return;
-                        }                        
-                        this.Updatestatus(this.state.item)}
+                        }
+                        else if (this.state.id != this.props.navigation.state.params.staffid && this.props.navigation.state.params.staffid != null) {
+                        else if(this.state.staff_id != this.props.navigation.state.params.staffid && this.props.navigation.state.params.staffid != null) {
+                                alert("ขออภัย , จุดนี้มีเจ้าหน้าที่คนอื่นดูแลอยู่แล้ว")
+                                return;
+                            }
+                        this.Updatestatus(this.state.item)
+                                return;
+                            this.Updatestatus(this.state.item)                            
+                        }
                     }
                 />
             </View>
         );
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
