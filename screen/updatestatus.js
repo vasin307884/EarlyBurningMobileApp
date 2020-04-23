@@ -10,8 +10,7 @@ export default class UpdateScreen extends React.Component {
             ustatusValue: statusValue,
             ucolor: color,
             uitem: item,
-            id: '',
-            staff_id: '',
+            id: ''
            
 
         }
@@ -41,8 +40,7 @@ export default class UpdateScreen extends React.Component {
         const token = await AsyncStorage.getItem('usertoken');
         const decoded = jwt_decode(token)
         this.setState({
-            id: decoded.id,
-            staff_id: decoded.staff_id
+            id: decoded.id
         })
         console.log(decoded);
     }
@@ -51,7 +49,6 @@ export default class UpdateScreen extends React.Component {
         let myrequest = {
             id: this.props.navigation.state.params.id,
             staffid: this.state.id,
-            staffid: this.state.staff_id,
             color: this.state.ucolor,
             statusValue: this.state.ustatusValue,
             lastupdate: this.state.updatedate
@@ -119,13 +116,10 @@ export default class UpdateScreen extends React.Component {
                           return;
                         }
                         else if (this.state.id != this.props.navigation.state.params.staffid && this.props.navigation.state.params.staffid != null) {
-                        else if(this.state.staff_id != this.props.navigation.state.params.staffid && this.props.navigation.state.params.staffid != null) {
-                                alert("ขออภัย , จุดนี้มีเจ้าหน้าที่คนอื่นดูแลอยู่แล้ว")
                                 return;
                             }
                         this.Updatestatus(this.state.item)
-                                return;
-                            this.Updatestatus(this.state.item)                            
+                                return;                            
                         }
                     }
                 />

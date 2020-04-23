@@ -11,7 +11,6 @@ import { createMaterialBottomTabNavigator } from 'react-navigation-material-bott
 import { createStackNavigator } from 'react-navigation-stack';
 import Addrequestscreen from './screen/addrequests';
 import ApiContainer from './screen/ApiContainer';
-import Addrequestscreen from './screen/addrequests';
 import MainUserScreen from './screen/mainforuser';
 import MainStaffScreen from './screen/mainforstaff';
 import Loginscreen from './screen/login';

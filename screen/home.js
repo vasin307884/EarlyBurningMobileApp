@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     height: 50,
     position: 'absolute',
     top: 15,
-    left: 230
+    left: 240
   },
 
   ShowTop:{

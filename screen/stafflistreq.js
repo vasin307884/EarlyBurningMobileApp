@@ -15,7 +15,6 @@ export default class Staffreq extends Component {
       refreshing: false,
       filterCrime: '',
       id: '',
-      staff_id: '',
       first_name: '',
       last_name: '',
       email: '',
@@ -55,7 +54,6 @@ export default class Staffreq extends Component {
     const decoded = jwt_decode(token)
     this.setState({
       id: decoded.id,
-      staff_id: decoded.staff_id,
       first_name: decoded.first_name,
       last_name: decoded.last_name,
       email: decoded.email
@@ -113,7 +111,6 @@ export default class Staffreq extends Component {
           renderItem={({ item }) =>{
           if ( !this.state.filterCrime || item.statusValue == this.state.filterCrime ) {
             if(item.staffid == this.state.id){
-              if(item.staffid == this.state.staff_id){      
             return (
               <TouchableOpacity onLongPress={() => { this.callupdate(item) }}>
               <Staffreqcard
@@ -125,7 +122,7 @@ export default class Staffreq extends Component {
               />
               </TouchableOpacity>
             )
-          }}}}}
+          }}}}
         />
       </View>
       </View>
