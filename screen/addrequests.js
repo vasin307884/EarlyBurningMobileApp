@@ -101,7 +101,7 @@ export default class Addrequestscreen extends Component {
         lastupdate:'ยังไม่มีการอัพเดท'
     }
 
-    alert(`คุณได้ส่งคำรองข้อเรียบร้อยแล้ว`);
+    alert(`คุณได้ส่งคำรองข้อเรียบร้อยแล้ว เจ้าหน้าที่จะแจ้งสถานะภายใน 1-5 วันก่อนวันดำเนินการ`);
     this.props.navigation.navigate('Map')
     fetch('https://chingphaow-application.herokuapp.com/requests/add', {
         method: 'POST',
@@ -169,7 +169,7 @@ _RenderloadingOverlay = () => {
           backgroundColor='rgba(0, 0, 0, 0.35)'
           paddingLeft= {45}
           keyboardType={'numeric'}
-          placeholder="พื้นที่ (โดยประมาณ)"
+          placeholder="พื้นที่ (จำนวนไร่โดยประมาณ)"
           placeholderTextColor='#f2e6d9'
           onChangeText = {(area) => this.setState({area:area})}
         />

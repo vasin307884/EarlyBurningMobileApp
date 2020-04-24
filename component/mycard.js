@@ -52,6 +52,10 @@ let Mycard = (props) => {
                 <Text style={styles.RequestInfo}>{lastupdate}  |  </Text>
                 <TimeAgo style={styles.RequestInfo} time={lastupdate} />
             </View>
+            <View style={{alignItems:'center'}}>
+                <Image style={styles.Logo} source={require('../immg/Editlogo.png')}/>
+                <Text style={{fontSize: 16, color:'red', fontWeight:'bold', marginBottom: 10, flex: 0.5, flexDirection:'column'}}>แตะค้างเพื่ออัพเดทสถานะ</Text>
+            </View>
 
 
         </View>
@@ -84,5 +88,13 @@ const styles = StyleSheet.create({
     },
     RequestInfo:{
         fontSize: 17,
+    },
+    Logo:{
+        height:40,
+        width:40,
+        marginBottom: 10,
+        flex: 0.5, 
+        flexDirection: 'column'
+
     }
 });
