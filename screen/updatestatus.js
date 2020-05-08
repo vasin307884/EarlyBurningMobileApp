@@ -60,7 +60,7 @@ export default class UpdateScreen extends React.Component {
             },
             body: JSON.stringify(myrequest)
         }).then(console.log(myrequest))
-        this.props.navigation.navigate('Reqlist')
+        this.props.navigation.navigate('Staffreq')
     }
     componentDidMount() {
         this.loadInitialState().done();
@@ -110,7 +110,7 @@ export default class UpdateScreen extends React.Component {
                 <Button
                     title="Update status"
                     onPress={() => {
-                        if (this.state.info.temp > 30 || this.state.info.wind > 1.6 || this.state.info.humidity < 65) {
+                        if (this.state.info.temp > 35 || this.state.info.wind > 1.6 || this.state.info.humidity < 65) {
                             alert("ไม่สามารถอัพเดทสถานะได้ในขณะนี้ กรุณาเช็คอุณหภูมิ,ความแรงลมและความชื้นอีกครั้ง");
                             return;
                         }

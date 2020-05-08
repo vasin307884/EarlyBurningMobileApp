@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, View, FlatList, Image, Button, Picker, Modal, TouchableOpacity } from 'react-native';
+import { Text, View, FlatList, Image, Button, Picker, Modal, TouchableOpacity,Linking, TouchableHighlightBase } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'
 import Icon1 from 'react-native-vector-icons/Ionicons'
 import { Badge, withBadge } from 'react-native-elements'
 import TimeAgo from 'react-native-timeago';
-
+import { TouchableHighlight } from 'react-native-gesture-handler';
 const BadgedIcon = withBadge(1)(Icon)
 let Mycard = (props) => {
     //let { id, firstname, lastname, email, phone, photo } = props.items;
@@ -57,7 +57,9 @@ let Mycard = (props) => {
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>เจ้าหน้าที่ที่ดูแล: </Text>
                 <Text style={{ color: 'blue', fontWeight: 'bold' }}>{first_name} {last_name}</Text>
             </View>
-
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <Text onPress={() => Linking.openURL(`https://www.google.com/maps?ie=UTF8&z=13&q=${latitude},${longitude}`)}>----- คลิ๊กเพื่อนำทาง -----</Text>
+            </View>
 
         </View>
     );

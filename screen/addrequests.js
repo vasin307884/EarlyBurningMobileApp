@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button,ActivityIndicator, Alert,Image,Icon } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button, ActivityIndicator, Platform, PermissionsAndroid, ToastAndroid } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
@@ -13,20 +13,20 @@ export default class Addrequestscreen extends Component {
       where: { lat: null, lng: null },
       error: null,
       loading: false,
-      info:{
-        name:null,
-        temp:null,
-        humidity:null,
-        desc:null,
-        wind:null,
-        icon:null,
+      info: {
+        name: null,
+        temp: null,
+        humidity: null,
+        desc: null,
+        wind: null,
+        icon: null,
       }
     }
   }
   // *Permission Allow*
   hasLocationPermission = async () => {
     if (Platform.OS === 'ios' ||
-        (Platform.OS === 'android' && Platform.Version < 23)) {
+      (Platform.OS === 'android' && Platform.Version < 23)) {
       return true;
     }
 
@@ -49,7 +49,7 @@ export default class Addrequestscreen extends Component {
     }
 
     return false;
-}
+  }
   componentDidMount() {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
@@ -61,18 +61,18 @@ export default class Addrequestscreen extends Component {
       fromdate:
         year + '/' + month + '/' + date + ' ' + hours + ':' + min + ':' + sec,
     });
-    Geolocation.setRNConfiguration({ authorizationLevel: 'whenInUse', skipPermissionRequests: false, });
+    Geolocation.setRNConfiguration({ authorizationLevel: 'whenInUse', skipPermissionRequests: true, });
     let geoOptions = {
       enableHighAccuracy: true,
       timeOut: 20000,
       maximumAge: 60 * 60 * 24
     };
-    const hasLocationPermission = this.hasLocationPermission();
-    if (!hasLocationPermission) return;
-    this.setState({ ready: false, error: null,loading: true });
+    this.setState({ ready: false, error: null, loading: true });
     Geolocation.getCurrentPosition(this.geoSuccess, this.geoFailure, geoOptions);
   }
   geoSuccess = (position) => {
+    const hasLocationPermission = this.hasLocationPermission();
+    if (!hasLocationPermission) return;
     console.log(position.coords.latitude);
     console.log(position.coords.longitude);
     this.setState({
@@ -82,78 +82,77 @@ export default class Addrequestscreen extends Component {
     })
   }
   geoFailure = (err) => {
-    this.setState({ error: err.message});
+    this.setState({ error: err.message });
   }
   submitRequest = async () => {
     let myRequest = {
-        name:this.state.name,
-        phone:this.state.phone,
-        address:this.state.address,
-        latitude:this.state.where.lat,
-        longitude:this.state.where.lng,
-        fromdate:this.state.fromdate,
-        todate:this.state.date,
-        area:this.state.area,
-        color:'red',
-        statusValue:'กำลังรอเจ้าหน้าที่ตรวจสอบ',
-        lastupdate:'ยังไม่มีการอัพเดท'
+      name: this.state.name,
+      phone: this.state.phone,
+      address: this.state.address,
+      latitude: this.state.where.lat,
+      longitude: this.state.where.lng,
+      fromdate: this.state.fromdate,
+      todate: this.state.date,
+      area: this.state.area,
+      color: 'red',
+      statusValue: 'กำลังรอเจ้าหน้าที่ตรวจสอบ',
+      lastupdate: 'ยังไม่มีการอัพเดท'
     }
 
     alert(`คุณได้ส่งคำรองข้อเรียบร้อยแล้ว`);
     this.props.navigation.navigate('Map')
     fetch('https://chingphaow-application.herokuapp.com/requests/add', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(myRequest),
-      }).then(console.log(myRequest))
-}
-_RenderloadingOverlay = () => {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(myRequest),
+    }).then(console.log(myRequest))
+  }
+  _RenderloadingOverlay = () => {
     if (this.state.loading) {
       return (
         <View style={styles.loader}>
-        <ActivityIndicator size="large" color="#0c9" />
-        <Text>กำลังหาตำแหน่งของคุณ</Text>
+          <ActivityIndicator size="large" color="#0c9" />
+          <Text>กำลังหาตำแหน่งของคุณ</Text>
         </View>
       );
     }
   };
   render() {
-    console.log(this.state.info)
     return (
-        <View style={styles.MainContainer}>
-         
+      <View style={styles.MainContainer}>
+
         <Text style={styles.txtLogin}>กรอกข้อมูล</Text>
         <TextInput
           style={styles.textInputStyle}
           placeholder="ชื่อ-นามสกุล"
           placeholderTextColor="red"
-          onChangeText = {(name) => this.setState({name:name})}
+          onChangeText={(name) => this.setState({ name: name })}
         />
         <TextInput
           style={styles.textInputStyle}
           placeholder="ที่อยู่"
           placeholderTextColor="red"
-          onChangeText = {(address) => this.setState({address:address})}
+          onChangeText={(address) => this.setState({ address: address })}
         />
         <TextInput
           style={styles.textInputStyle}
           keyboardType={'numeric'}
           placeholder="เบอร์โทร"
           placeholderTextColor="red"
-          onChangeText = {(phone) => this.setState({phone:phone})}
+          onChangeText={(phone) => this.setState({ phone: phone })}
         />
         <TextInput
           style={styles.textInputStyle}
           keyboardType={'numeric'}
           placeholder="พื้นที่(โดยประมาณ)"
           placeholderTextColor="red"
-          onChangeText = {(area) => this.setState({area:area})}
+          onChangeText={(area) => this.setState({ area: area })}
         />
         <DatePicker
-          style={{width: 200}}
+          style={{ width: 200 }}
           date={this.state.date} //initial date from state
           mode="datetime" //The enum of date, datetime and time
           placeholder="กำหนดวันที่"
@@ -173,7 +172,7 @@ _RenderloadingOverlay = () => {
               marginLeft: 36
             }
           }}
-          onDateChange={(date) => {this.setState({date: date})}}
+          onDateChange={(date) => { this.setState({ date: date }) }}
         />
         <Text style={styles.welcome}>ที่อยู่ปัจจุบันของฉัน</Text>
         {this._RenderloadingOverlay()}
@@ -181,15 +180,16 @@ _RenderloadingOverlay = () => {
         <Text >ลองติจูด : {this.state.where.lng}</Text>
         <View style={{ margin: 25 }}>
           <Button
-          title="ส่งข้อมูล"
-          color="green"
-          onPress={() => {
-             if(this.state.name==null||this.state.phone==null||this.state.address==null){
-              alert("กรุณากรอกข้อมูลให้ครบ")
-              return;
+            title="ส่งข้อมูล"
+            color="green"
+            onPress={() => {
+              if (this.state.name == null || this.state.phone == null || this.state.address == null || this.state.area == null || this.state.date == null) {
+                alert("กรุณากรอกข้อมูลให้ครบ")
+                return;
+              }
+              this.submitRequest()
             }
-            this.submitRequest()}
-          }
+            }
           />
         </View>
       </View>

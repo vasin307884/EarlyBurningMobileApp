@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button, Picker, SafeAreaView, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button, Picker, SafeAreaView, Image, Linking } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import data from '../data/data.json';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export default class Mapstaff extends Component {
   interValID;
@@ -69,7 +69,7 @@ export default class Mapstaff extends Component {
   }
   updateFilter = (filterCrime) => {
     this.setState({ filterCrime: filterCrime })
- }
+  }
   render() {
     return (
       <SafeAreaView style={styles.body}>
@@ -77,6 +77,7 @@ export default class Mapstaff extends Component {
 
 
           <MapView
+            provider={PROVIDER_GOOGLE}
             key={this.state.forceRefresh}
             style={styles.map}
             showsUserLocation={true}
@@ -89,28 +90,29 @@ export default class Mapstaff extends Component {
                 latitude: marker.latitude,
                 longitude: marker.longitude,
               };
-              if ( !this.state.filterCrime || marker.statusValue == this.state.filterCrime ) {
-              return (
+              if (!this.state.filterCrime || marker.statusValue == this.state.filterCrime) {
+                return (
 
-                <MapView.Marker
-                  pinColor={marker.color}
-                  key={index}
-                  coordinate={coords}
-                >
-                  <MapView.Callout>
-                  <Text>ผู้ส่ง : {marker.name}</Text>
-                  <Text>เบอร์โทร : {marker.phone}</Text>
-                  <Text>ที่อยู่ : {marker.address}</Text>
-                  <Text>วันที่ส่งมา : {marker.fromdate}</Text>
-                  <Text style={{color:marker.color}}>สถานะ : {marker.statusValue}</Text>
-                  <Text style={{color:'blue'}}>เจ้าหน้าที่ที่ดูแล : {marker.first_name} {marker.last_name}</Text>
-                </MapView.Callout>
-                </MapView.Marker>
+                  <MapView.Marker
+                    pinColor={marker.color}
+                    key={index}
+                    coordinate={coords}
+                  >
+                    <MapView.Callout>
+                      <Text>ผู้ส่ง : {marker.name}</Text>
+                      <Text>เบอร์โทร : {marker.phone}</Text>
+                      <Text>ที่อยู่ : {marker.address}</Text>
+                      <Text>วันที่ส่งมา : {marker.fromdate}</Text>
+                      <Text style={{ color: marker.color }}>สถานะ : {marker.statusValue}</Text>
+                      <Text style={{ color: 'blue' }}>เจ้าหน้าที่ที่ดูแล : {marker.first_name} {marker.last_name}</Text>
+                    </MapView.Callout>
+                  </MapView.Marker>
 
 
-              );
-            }})}
-            {data.map((marker, index) => {
+                );
+              }
+            })}
+            {/* {data.map((marker, index) => {
               const date = `วันที่ : ${marker.acq_date}`;
               return (
                 <Marker
@@ -124,7 +126,7 @@ export default class Mapstaff extends Component {
                   <Image source={require('../assets/fireicon.png')} style={{ height: 25, width: 25 }} />
                 </Marker>
               );
-            })}
+            })} */}
 
           </MapView>
 

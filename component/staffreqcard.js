@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, FlatList, Image, Button, Picker, Modal, TouchableOpacity } from 'react-native';
+import { Text, View, FlatList, Image, Button, Picker, Modal, TouchableOpacity,Linking } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'
 import Icon1 from 'react-native-vector-icons/Ionicons'
 import { Badge,withBadge} from 'react-native-elements'
@@ -53,13 +53,16 @@ let Staffreqcard = (props) => {
                 <Text>{lastupdate}  |  </Text>
                 <TimeAgo time={lastupdate} />
             </View>
-            <View style={{ flex: 1, flexDirection: 'row', marginTop: 5}}>
+            <View style={{ flex: 1, flexDirection: 'row' }}>
+            <Text onPress={() => Linking.openURL(`https://www.google.com/maps?ie=UTF8&z=13&q=${latitude},${longitude}`)}>----- คลิ๊กเพื่อนำทาง -----</Text>
+            </View>
+            {/* <View style={{ flex: 1, flexDirection: 'row', marginTop: 5}}>
             <Icon name="minus" size={30} color='black'/>
                 <TouchableOpacity>
                 <Badge value={<Text>ลบออกจากลิสต์ของฉัน</Text>} status="error" />
                 </TouchableOpacity>
             </View>
-            
+             */}
             
         </View>
     );
