@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Alert, Picker } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Alert, Picker,AsyncStorage } from 'react-native';
+import jwt_decode from 'jwt-decode'
 // let updatedate = new Date();
 export default class UpdateScreen extends React.Component {
     constructor(props) {
@@ -66,6 +67,7 @@ export default class UpdateScreen extends React.Component {
     }
     componentDidMount() {
         this.getWeather()
+        this.loadInitialState().done();
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth() + 1; //Current Month
         var year = new Date().getFullYear(); //Current Year
@@ -123,7 +125,8 @@ export default class UpdateScreen extends React.Component {
                           return;
                         }
                         else if (this.state.staff_id != this.props.navigation.state.params.staffid && this.props.navigation.state.params.staffid != null) {
-                                return;
+                            alert("ขออภัย , จุดนี้มีเจ้าหน้าที่คนอื่นดูแลอยู่แล้ว")    
+                            return;
                             }
                         this.Updatestatus(this.state.item)                            
                         }

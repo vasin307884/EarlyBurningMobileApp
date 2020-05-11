@@ -169,7 +169,7 @@ _RenderloadingOverlay = () => {
           backgroundColor='rgba(0, 0, 0, 0.35)'
           paddingLeft= {45}
           keyboardType={'numeric'}
-          placeholder="พื้นที่ (จำนวนไร่โดยประมาณ)"
+          placeholder="พื้นที่ (ตร.ม. โดยประมาณ)"
           placeholderTextColor='#f2e6d9'
           onChangeText = {(area) => this.setState({area:area})}
         />

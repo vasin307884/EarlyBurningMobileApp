@@ -8,7 +8,7 @@ import TimeAgo from 'react-native-timeago';
 const BadgedIcon = withBadge(1)(Icon)
 let Mycard = (props) => {
     //let { id, firstname, lastname, email, phone, photo } = props.items;
-    let { staffid, name, phone, address, latitude, longitude, fromdate, todate, statusValue, color, lastupdate, area } = props.items;
+    let { staffid,first_name, last_name, name, phone, address, latitude, longitude, fromdate, todate, statusValue, color, lastupdate, area } = props.items;
     return (
         <View style={styles.InfoCard}>
             <View style={styles.Info}>
@@ -46,6 +46,10 @@ let Mycard = (props) => {
             <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>สถานะ : </Text>
                 <Text style={{ color: color, fontWeight: 'bold' }}>{statusValue}</Text>
+            </View>
+            <View style={styles.Info}>
+                <Text style={{ fontSize: 16, fontWeight: 'bold' }}>ผู้ดูแล : </Text>
+                <Text style={{color:'blue'}}>{first_name} {last_name}</Text>
             </View>
             <View style={styles.Info}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold' }}>อัพเดทล่าสุด : </Text>
