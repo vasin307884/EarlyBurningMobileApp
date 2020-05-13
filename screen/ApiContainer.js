@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#ecd9c6',
+    // backgroundColor: '#ecd9c6',
     padding: 8,
   },
   paragraph: {

@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar,} from 'react-native';
+import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar,AsyncStorage} from 'react-native';
 import Mapuser from './screen/mapforuser';
 import Homescreen from './screen/home';
 import Mainscreen from './screen/main'

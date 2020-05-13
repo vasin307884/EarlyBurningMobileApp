@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button,ActivityIndicator, Alert,Image,Icon } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button,ActivityIndicator, Platform, PermissionsAndroid, ToastAndroid } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import DatePicker from 'react-native-datepicker';
 import { Title } from 'react-native-paper';
-import {Platform,PermissionsAndroid,ToastAndroid} from 'react-native';
 
 export default class Addrequestscreen extends Component {
   constructor() {
@@ -15,13 +14,14 @@ export default class Addrequestscreen extends Component {
       where: { lat: null, lng: null },
       error: null,
       loading: false,
-      info:{
-        name:null,
-        temp:null,
-        humidity:null,
-        desc:null,
-        wind:null,
-        icon:null,
+      info: {
+        name: null,
+        temp: null,
+        humidity: null,
+        desc: null,
+        wind: null,
+        icon: null,
+
       }
     }
   }
@@ -84,21 +84,22 @@ export default class Addrequestscreen extends Component {
     })
   }
   geoFailure = (err) => {
-    this.setState({ error: err.message});
+    this.setState({ error: err.message });
   }
   submitRequest = async () => {
     let myRequest = {
-        name:this.state.name,
-        phone:this.state.phone,
-        address:this.state.address,
-        latitude:this.state.where.lat,
-        longitude:this.state.where.lng,
-        fromdate:this.state.fromdate,
-        todate:this.state.date,
-        area:this.state.area,
-        color:'red',
-        statusValue:'กำลังรอเจ้าหน้าที่ตรวจสอบ',
-        lastupdate:'ยังไม่มีการอัพเดท'
+      name: this.state.name,
+      phone: this.state.phone,
+      address: this.state.address,
+      latitude: this.state.where.lat,
+      longitude: this.state.where.lng,
+      fromdate: this.state.fromdate,
+      todate: this.state.date,
+      area: this.state.area,
+      color: 'red',
+      statusValue: 'กำลังรอเจ้าหน้าที่ตรวจสอบ',
+      lastupdate: 'ยังไม่มีการอัพเดท'
+
     }
 
     alert(`คุณได้ส่งคำรองข้อเรียบร้อยแล้ว เจ้าหน้าที่จะแจ้งสถานะภายใน 1-5 วันก่อนวันดำเนินการ`);
@@ -123,7 +124,6 @@ _RenderloadingOverlay = () => {
     }
   };
   render() {
-    // console.log(this.state.info)
     return (
         <View style={styles.MainContainer}>
 
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    backgroundColor:'#f5efdb'
+    // backgroundColor:'#f5efdb'
   },
   welcome: {
     fontSize: 20,
@@ -238,12 +238,12 @@ const styles = StyleSheet.create({
   },
   textInputStyle: {
     height: 40,
-    width: 270,
+    width: 350,
     marginLeft: 20,
     marginRight: 20,
     padding: 10,
     marginTop: 8,
-    borderRadius: 25,
+    // borderRadius: 25,
   },
   txtLogin: {
     padding: 20,

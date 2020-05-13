@@ -61,7 +61,7 @@ getWeather(){
             <View style={styles.Datacontainer2}>
             <Image source={require('../immg/Water.png')}
             style={styles.inputicon2}/>
-            <Title>ความชื้นในอากาศ : {this.state.info.humidity} %</Title>
+            <Title style={{color:'white'}}>ความชื้นในอากาศ : {this.state.info.humidity} %</Title>
             </View>
             <View style={styles.Datacontainer1}>
             <Image source={require('../immg/Wind.png')}
@@ -71,7 +71,7 @@ getWeather(){
             <View style={styles.Datacontainer2}>
             <Image source={require('../immg/State.png')}
             style={styles.inputicon2}/>
-            <Title>สถานะ : {this.state.info.desc}</Title>
+            <Title style={{color:'white'}}>สถานะ : {this.state.info.desc}</Title>
             </View>
         </View>
     );
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     // alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f5efdb'
+    // backgroundColor: '#f5efdb'
   },
 
   inputicon1:{
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     borderRadius: 25,
     alignItems:'flex-end',
-    backgroundColor: '#ecd9c6',
+    backgroundColor: '#ecffb3',
     shadowColor: "#000",
     shadowOffset: {
 	    width: 0,
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 100,
     borderRadius: 25,
-    backgroundColor: '#d4d4aa',
+    backgroundColor: '#004d00',
     shadowColor: "#000",
     shadowOffset: {
 	    width: 0,

@@ -55,29 +55,40 @@ export default class Loginscreen extends React.Component {
         }
 
         this.onChange = this.onChange.bind(this)
-        this.onSubmit = this.onSubmit.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+  onSubmit(e) {
+    e.preventDefault()
+
+    const user = {
+      email: this.state.email,
+      password: this.state.password,
     }
 
-    onChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-    onSubmit(e) {
-        e.preventDefault()
     
-        const user = {
-          email: this.state.email,
-          password: this.state.password,
-        }
-    
-        login(user).then(res => {
-          if (res) {
-            this.props.navigation.navigate('Mainstaff');
-            alert("เข้าสู่ระบบสำเร็จ!");
-          }else{
-            alert("Email หรือ Password ไม่ถูกต้อง กรุณาลองอีกครั้ง");
-          }
-        })
-      }
+    login(user).then(res => {
+        if (res) {
+          this.props.navigation.navigate('Mainstaff');
+          alert("เข้าสู่ระบบสำเร็จ!");
+        } else {
+          alert("Email หรือ Password ไม่ถูกต้อง กรุณาลองอีกครั้ง");
+        }  
+    })
+}
+componentDidMount() {
+  this.loadInitialState().done();
+}
+loadInitialState = async () => {
+  var user = await AsyncStorage.getItem('usertoken');
+  if (user !== null) {
+    this.props.navigation.navigate('Mainstaff');
+  }
+}
+
     render() {
         return (
             <View style={{width:'100%', height: '100%', backgroundColor:'#f5efdb'}}>

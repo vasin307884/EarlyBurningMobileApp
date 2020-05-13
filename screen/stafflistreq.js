@@ -157,12 +157,12 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: '#ecd9c6'
+    // backgroundColor: '#ecd9c6'
   },
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#ecd9c6',
+    // backgroundColor: '#ecd9c6',
     padding: 8,
   },
   infoadmin:{

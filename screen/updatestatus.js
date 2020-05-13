@@ -193,4 +193,4 @@ const styles = StyleSheet.create({
     }
 });
 
-// if(this.state.info.temp > 30||this.state.info.wind > 1.6||this.state.info.humidity < 65){
+// if(this.state.info.temp > 35||this.state.info.wind > 1.6||this.state.info.humidity < 65){
