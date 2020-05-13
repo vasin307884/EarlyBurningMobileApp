@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button, ActivityIndicator, Platform, PermissionsAndroid, ToastAndroid } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button, ActivityIndicator, Platform, PermissionsAndroid, ToastAndroid, SafeAreaView } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import DatePicker from 'react-native-datepicker';
-import { Title } from 'react-native-paper';
+import { Title, Modal } from 'react-native-paper';
 export default class Addrequestscreen extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { navigation } = this.props;
+    const latitude = navigation.getParam('latitude', '');
+    const longitude = navigation.getParam('longitude', '');
     this.state = {
+      latitude : latitude,
+      longitude : longitude,
+      showMe : true,
       ready: false,
       where: { lat: null, lng: null },
       error: null,
@@ -50,6 +56,29 @@ export default class Addrequestscreen extends Component {
 
     return false;
   }
+  getLocation = async () => {
+    const hasLocationPermission = await this.hasLocationPermission();
+
+    if (!hasLocationPermission) return;
+
+    this.setState({ loading: true }, () => {
+        Geolocation.getCurrentPosition(
+            (position) => {
+                this.setState({
+                    where: { lat: position.coords.latitude, lng: position.coords.longitude },
+                    location: position,
+                    loading: false
+                });
+                console.log(position);
+            },
+            (error) => {
+                this.setState({ location: error, loading: false });
+                console.log(error);
+            },
+            { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000, distanceFilter: 50, forceRequestLocation: true }
+        );
+    });
+}
   componentDidMount() {
     var date = new Date().getDate(); //Current Date
     var month = new Date().getMonth() + 1; //Current Month
@@ -61,36 +90,36 @@ export default class Addrequestscreen extends Component {
       fromdate:
         year + '/' + month + '/' + date + ' ' + hours + ':' + min + ':' + sec,
     });
-    Geolocation.setRNConfiguration({ authorizationLevel: 'whenInUse', skipPermissionRequests: true, });
-    let geoOptions = {
-      enableHighAccuracy: true,
-      timeOut: 20000,
-      maximumAge: 60 * 60 * 24
-    };
-    this.setState({ ready: false, error: null, loading: true });
-    Geolocation.getCurrentPosition(this.geoSuccess, this.geoFailure, geoOptions);
+    // Geolocation.setRNConfiguration({ authorizationLevel: 'whenInUse', skipPermissionRequests: true, });
+    // let geoOptions = {
+    //   enableHighAccuracy: true,
+    //   timeOut: 20000,
+    //   maximumAge: 60 * 60 * 24
+    // };
+    // this.setState({ ready: false, error: null, loading: true });
+    // Geolocation.getCurrentPosition(this.geoSuccess, this.geoFailure, geoOptions);
   }
-  geoSuccess = (position) => {
-    const hasLocationPermission = this.hasLocationPermission();
-    if (!hasLocationPermission) return;
-    console.log(position.coords.latitude);
-    console.log(position.coords.longitude);
-    this.setState({
-      ready: true,
-      where: { lat: position.coords.latitude, lng: position.coords.longitude },
-      loading: false
-    })
-  }
-  geoFailure = (err) => {
-    this.setState({ error: err.message });
-  }
+  // geoSuccess = (position) => {
+  //   const hasLocationPermission = this.hasLocationPermission();
+  //   if (!hasLocationPermission) return;
+  //   console.log(position.coords.latitude);
+  //   console.log(position.coords.longitude);
+  //   this.setState({
+  //     ready: true,
+  //     where: { lat: position.coords.latitude, lng: position.coords.longitude },
+  //     loading: false
+  //   })
+  // }
+  // geoFailure = (err) => {
+  //   this.setState({ error: err.message });
+  // }
   submitRequest = async () => {
     let myRequest = {
       name: this.state.name,
       phone: this.state.phone,
       address: this.state.address,
-      latitude: this.state.where.lat,
-      longitude: this.state.where.lng,
+      latitude: this.state.latitude,
+      longitude: this.state.longitude,
       fromdate: this.state.fromdate,
       todate: this.state.date,
       area: this.state.area,
@@ -123,7 +152,6 @@ export default class Addrequestscreen extends Component {
   render() {
     return (
       <View style={styles.MainContainer}>
-
         <Text style={styles.txtLogin}>กรอกข้อมูล</Text>
         <TextInput
           style={styles.textInputStyle}
@@ -174,10 +202,11 @@ export default class Addrequestscreen extends Component {
           }}
           onDateChange={(date) => { this.setState({ date: date }) }}
         />
-        <Text style={styles.welcome}>ที่อยู่ปัจจุบันของฉัน</Text>
+        {/* <Button title='แสดงที่อยู่ปัจจุบันของฉัน' onPress={this.getLocation}/> */}
+        <Button title='กำหนดจุดที่จะเผา' onPress={()=>this.props.navigation.navigate('Sending')}/>
         {this._RenderloadingOverlay()}
-        <Text >ละติจูด : {this.state.where.lat}</Text>
-        <Text >ลองติจูด : {this.state.where.lng}</Text>
+        <Text >ละติจูด : {this.state.latitude}</Text>
+        <Text >ลองติจูด : {this.state.longitude}</Text>
         <View style={{ margin: 25 }}>
           <Button
             title="ส่งข้อมูล"
@@ -191,7 +220,8 @@ export default class Addrequestscreen extends Component {
             }
             }
           />
-        </View>
+                   
+        </View>       
       </View>
     );
   }
@@ -199,6 +229,7 @@ export default class Addrequestscreen extends Component {
 
 const styles = StyleSheet.create({
   MainContainer: {
+    flex:1,
     position: 'absolute',
     top: 0,
     left: 0,
@@ -206,6 +237,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'flex-end',
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  body: {
+    flex: 1,
   },
   welcome: {
     fontSize: 20,
@@ -225,5 +262,11 @@ const styles = StyleSheet.create({
     padding: 20,
     fontWeight: "bold",
     fontSize: 20
+  },
+  modalView:{
+    height:200,
+    justifyContent:'center',
+    alignItems:'center',
+    position:'absolute'
   }
 });  
