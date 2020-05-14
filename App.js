@@ -1,7 +1,8 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar,} from 'react-native';
+import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar,AsyncStorage} from 'react-native';
+import Mapuser from './screen/mapforuser';
 import Homescreen from './screen/home';
 import Mainscreen from './screen/main'
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -30,15 +31,15 @@ const StackAppNavigator = createStackNavigator(
   Mainuser : MainUserScreen,
   Mainstaff : MainStaffScreen,
   Login : Loginscreen,
+  
 },
 {
   initialRouteName: "Main",
   defaultNavigationOptions: {
-    header:false,
     headerStyle: {
-      backgroundColor: "black",
+      backgroundColor: "white",
     },
-    headerTintColor: '#fff',
+    headerTintColor: 'black',
     headerTitleStyle: {
       fontWeight: 'bold',
       justifyContent:'center',

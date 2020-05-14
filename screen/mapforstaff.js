@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button, Picker, SafeAreaView, Image } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, Button, Picker, SafeAreaView, Image, Linking } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Marker } from 'react-native-maps';
 import Geolocation from 'react-native-geolocation-service';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import data from '../data/data.json';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+
 export default class Mapstaff extends Component {
   interValID;
   static navigationOptions =
@@ -76,6 +77,7 @@ export default class Mapstaff extends Component {
 
 
           <MapView
+            provider={PROVIDER_GOOGLE}
             key={this.state.forceRefresh}
             style={styles.map}
             showsUserLocation={true}
@@ -102,6 +104,7 @@ export default class Mapstaff extends Component {
                   <Text>ที่อยู่ : {marker.address}</Text>
                   <Text>วันที่ส่งมา : {marker.fromdate}</Text>
                   <Text style={{color:marker.color}}>สถานะ : {marker.statusValue}</Text>
+                  <Text style={{color:'blue'}}>เจ้าหน้าที่ที่ดูแล : {marker.first_name} {marker.last_name}</Text>
                 </MapView.Callout>
                 </MapView.Marker>
 
@@ -127,9 +130,9 @@ export default class Mapstaff extends Component {
           </MapView>
 
 
-          <View style={{ flex: 1, paddingRight: 350 }}>
-            <TouchableOpacity onPress={() => { this.Refreshbutton() }}>
-              <Icon name={'refresh'} size={50} />
+          <View style={{ flex: 1, alignItems:'flex-end', marginTop:10 }}>
+            <TouchableOpacity style={{marginLeft:325}} onPress={() => { this.Refreshbutton() }}>
+              <Icon name={'refresh'} size={30} />
             </TouchableOpacity>
           </View>
         </View>
@@ -148,7 +151,6 @@ export default class Mapstaff extends Component {
     );
   }
 }
-
 const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
@@ -177,4 +179,3 @@ const styles = StyleSheet.create({
     flex: 1,
   }
 });
-

@@ -68,7 +68,7 @@ export default class ApiContainer extends React.Component {
     })
   }
   async callupdate(item) {
-    await this.props.navigation.navigate('Update', { id: item.id, items: item, statusValue: item.statusValue, color: item.color })
+    await this.props.navigation.navigate('Update', { id: item.id, items: item, statusValue: item.statusValue, color: item.color,staffid:item.staffid })
   }
   updateFilter = (filterCrime) => {
     this.setState({ filterCrime: filterCrime })
@@ -78,8 +78,16 @@ export default class ApiContainer extends React.Component {
     return (
 
       <View style={styles.container}>
-        <View>
-          <Picker
+        <View style={{backgroundColor:'#004d00',shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+
+    elevation: 24,}}>
+          <Picker style={{color:'white'}}
             selectedValue={this.state.filterCrime}
             onValueChange={this.updateFilter} >
             <Picker.Item label="ทั้งหมด" value={this.state.statusValue} />
@@ -89,7 +97,7 @@ export default class ApiContainer extends React.Component {
 
           </Picker>
         </View>
-        <FlatList
+        <FlatList 
           refreshing={this.state.refreshing}
           onRefresh={this.handleRefresh}
           data={this.state.requestsdata.data}
@@ -102,6 +110,7 @@ export default class ApiContainer extends React.Component {
                 id={item.id}
                 statusValue={item.statusValue}
                 color={item.color}
+                staffid={item.staffid}
               />
             </TouchableOpacity>
             )
@@ -117,7 +126,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
+    // backgroundColor: '#ecd9c6',
     padding: 8,
   },
   paragraph: {
