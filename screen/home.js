@@ -47,17 +47,33 @@ getWeather(){
     console.log(this.state.info)
     return (
         <View style={styles.MainContainer}>
-          
-            <Title>{this.state.info.name}</Title>
-            <Image style={{width:120,height:120}}
+          <View style={styles.ShowTop}>
+            <Title style={{justifyContent:'center'}}>{this.state.info.name}</Title>
+            <Image style={{width:100,height:50,justifyContent:'center', position:'relative'}}
             source={{uri:'http://openweathermap.org/img/w/'+this.state.info.icon+".png"}}
             />
+          </View>
+            <View style={styles.Datacontainer1}>
+            <Image source={require('../immg/Temp.png')}
+            style={styles.inputicon1}/>
             <Title>อุณหภูมิ : {this.state.info.temp} °C</Title>
+            </View>
+            <View style={styles.Datacontainer2}>
+            <Image source={require('../immg/Water.png')}
+            style={styles.inputicon2}/>
             <Title>ความชื้นในอากาศ : {this.state.info.humidity} %</Title>
+            </View>
+            <View style={styles.Datacontainer1}>
+            <Image source={require('../immg/Wind.png')}
+            style={styles.inputicon1}/>
             <Title>แรงลม : {this.state.info.wind} m/s</Title>
-            <Title>สถานะ1 : {this.state.info.desc}</Title>
-            
-      </View>
+            </View>
+            <View style={styles.Datacontainer2}>
+            <Image source={require('../immg/State.png')}
+            style={styles.inputicon2}/>
+            <Title>สถานะ : {this.state.info.desc}</Title>
+            </View>
+        </View>
     );
   }
 }
@@ -69,7 +85,75 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
+    // backgroundColor: '#f5efdb'
+  },
+
+  inputicon1:{
+    width: 50,
+    height: 50,
+    position: 'absolute',
+    top: 15,
+    left: 37,
+  },
+
+  inputicon2:{
+    width: 50,
+    height: 50,
+    position: 'absolute',
+    top: 15,
+    left: 240
+  },
+
+  ShowTop:{
+    alignItems: 'center',
+  },
+
+  Datacontainer1:{
+    width:300,
+    height: 90,
+    // borderWidth: 1,
+    // borderColor: 'brown',
+    paddingTop: 25,
+    paddingBottom: 30,
+    paddingRight: 15,
+    marginTop: 20,
+    marginLeft: 20,
+    borderRadius: 25,
+    alignItems:'flex-end',
+    backgroundColor: 'white',
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+
+    elevation: 24,
+  },
+
+  Datacontainer2:{
+    width:300,
+    height: 90,
+    // borderWidth: 1,
+    // borderColor: 'brown',
+    paddingTop: 25,
+    paddingBottom: 30,
+    paddingLeft: 15,
+    marginTop: 20,
+    marginLeft: 100,
+    borderRadius: 25,
+    backgroundColor: 'white',
+    shadowColor: "#000",
+    shadowOffset: {
+	    width: 0,
+	    height: 12,
+    },
+    shadowOpacity: 0.58,
+    shadowRadius: 16.00,
+
+    elevation: 24,
   }
 });  

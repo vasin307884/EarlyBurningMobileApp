@@ -2,17 +2,21 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {SafeAreaView,StyleSheet,ScrollView,View,Text,StatusBar,} from 'react-native';
-import Mapscreen from '../screen/map';
+import Mapuser from './mapforuser';
 import Homescreen from '../screen/home';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer,createSwitchNavigator } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 import Addrequestscreen from '../screen/addrequests';
-import TestMap from '../screen/testmap';
+import Sendinglocation from '../screen/sendinglocation'
+
 export default class MainUserScreen extends React.Component {
     static navigationOptions =
     {
-      title: 'ชิงเผา Application'
+      title: 'ชิงเผา Application',
+      headerLeft: false,
+      header:false
     };
   render() {
     return (
@@ -22,6 +26,16 @@ export default class MainUserScreen extends React.Component {
     );
   }
 }
+const MainStack = createStackNavigator({
+  Sending : Sendinglocation,
+},
+{
+  defaultNavigationOptions: {
+    header:false
+  }
+  }
+);
+
 const TabNavigator = createMaterialBottomTabNavigator({
   Home: {
     screen: Homescreen,
@@ -35,7 +49,7 @@ const TabNavigator = createMaterialBottomTabNavigator({
     }
   },
   Map: {
-    screen: Mapscreen,
+    screen: Mapuser,
     navigationOptions: {
       tabBarLabel: 'แผนที่',
       tabBarIcon: ({ tintColor }) => (
@@ -55,18 +69,15 @@ const TabNavigator = createMaterialBottomTabNavigator({
         </View>
       )
     }
-  },
-  Testmap: {
-    screen: TestMap,
-    navigationOptions: {
-      tabBarLabel: 'แผนที่',
-      tabBarIcon: ({ tintColor }) => (
-        <View>
-          <Icon style={[{ color: tintColor }]} size={25} name={'ios-map'} />
-        </View>
-      )
-    }
   }
 })
 console.disableYellowBox = true;
-const AppContainer = createAppContainer(TabNavigator);
+const AppContainer = createAppContainer(
+  createSwitchNavigator(
+    {
+      Tab: TabNavigator,
+      Main: MainStack
+    }
+  )
+);
+

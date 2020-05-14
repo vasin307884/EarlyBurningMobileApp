@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Alert, Picker } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Alert, Picker,AsyncStorage } from 'react-native';
+import jwt_decode from 'jwt-decode'
 // let updatedate = new Date();
 export default class UpdateScreen extends React.Component {
     constructor(props) {
@@ -10,6 +11,7 @@ export default class UpdateScreen extends React.Component {
             ustatusValue: statusValue,
             ucolor: color,
             uitem: item,
+            staff_id: ''
            
 
         }
@@ -34,9 +36,20 @@ export default class UpdateScreen extends React.Component {
           Alert.alert("Error"+err.message+"โปรดเช็คการเชื่อมต่อเน็ตของท่าน",[{text:"OK"}])
         })
       }
+
+      loadInitialState = async () => {
+        const token = await AsyncStorage.getItem('usertoken');
+        const decoded = jwt_decode(token)
+        this.setState({
+            staff_id: decoded.staff_id
+        })
+        console.log(decoded);
+    }
+
     Updatestatus() {
         let myrequest = {
             id: this.props.navigation.state.params.id,
+            staffid: this.state.staff_id,
             color: this.state.ucolor,
             statusValue: this.state.ustatusValue,
             lastupdate: this.state.updatedate
@@ -50,10 +63,11 @@ export default class UpdateScreen extends React.Component {
             },
             body: JSON.stringify(myrequest)
         }).then(console.log(myrequest))
-        this.props.navigation.navigate('Reqlist')
+        this.props.navigation.navigate('Staffreq')
     }
     componentDidMount() {
         this.getWeather()
+        this.loadInitialState().done();
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth() + 1; //Current Month
         var year = new Date().getFullYear(); //Current Year
@@ -69,11 +83,13 @@ export default class UpdateScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={{ alignItems: 'center' }}>
-                    <Text>ไอดี : {this.props.navigation.state.params.id}</Text>
+                    <Text style={styles.Toptxt}>Request ID : {this.props.navigation.state.params.id}</Text>
                 </View>
                 <View>
-                    <Text>สถานะ : </Text>
+                    <Text style={styles.txtbrowse}>สถานะ : </Text>
+                    <View style={styles.Pickerbox1}>
                     <Picker
+                        style={{fontWeight: 'bold'}}
                         selectedValue={this.state.ustatusValue}
                         onValueChange={(itemValue, itemIndex) => this.setState({ ustatusValue: itemValue })} >
 
@@ -82,38 +98,98 @@ export default class UpdateScreen extends React.Component {
                         <Picker.Item label="ชิงเผาเสร็จเรียบร้อยแล้ว" value="ชิงเผาเสร็จเรียบร้อยแล้ว" />
 
                     </Picker>
-                    <Text>สี : </Text>
-                    <Picker
+                    </View>
+                    <Text style={styles.txtbrowse}>สีของสถานะ : </Text>
+                    <View style={styles.Pickerbox2}>
+                    <Picker 
+                        style={{fontWeight: 'bold'}}
                         selectedValue={this.state.ucolor}
                         onValueChange={(itemValue, itemIndex) => this.setState({ ucolor: itemValue })} >
 
-                        <Picker.Item label="red" value="red" />
-                        <Picker.Item label="orange" value="orange" />
-                        <Picker.Item label="green" value="green" />
+                        <Picker.Item label="แดง" value="red" />
+                        <Picker.Item label="ส้ม" value="orange" />
+                        <Picker.Item label="เขียว" value="green" />
 
                     </Picker>
+                    </View>
                 </View>
                 <View>
-                    <Text>{this.state.updatedate}</Text>
+                    <Text style={{color:'red', fontSize: 15, fontWeight: 'bold', marginLeft: 30, marginBottom: 5}}>{this.state.updatedate}</Text>
                 </View>
+                <View style={styles.Btn}>
                 <Button
                     title="Update status"
                     onPress={() => {
-                        if(this.state.info.temp > 30||this.state.info.wind > 1.6||this.state.info.humidity < 65){
+                        if(this.state.info.temp > 90||this.state.info.wind > 90||this.state.info.humidity < 2){
                           alert("ไม่สามารถอัพเดทสถานะได้ในขณะนี้ กรุณาเช็คอุณหภูมิ,ความแรงลมและความชื้นอีกครั้ง");
                           return;
-                        }                        
-                        this.Updatestatus(this.state.item)}
+                        }
+                        else if (this.state.staff_id != this.props.navigation.state.params.staffid && this.props.navigation.state.params.staffid != null) {
+                            alert("ขออภัย , จุดนี้มีเจ้าหน้าที่คนอื่นดูแลอยู่แล้ว")    
+                            return;
+                            }
+                        this.Updatestatus(this.state.item)                            
+                        }
                     }
                 />
+                </View>
             </View>
         );
     }
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
         justifyContent: 'center',
+    },
+    txtbrowse:{
+        paddingLeft: 25,
+        marginBottom: 5,
+        fontSize: 18,
+        fontWeight: 'bold',
+        // color: '#261a0d'
+    },
+    Pickerbox1:{
+        backgroundColor: 'white',
+        marginBottom: 20,
+        marginLeft: 20,
+        marginRight: 20,
+        shadowColor: "#000",
+        shadowOffset: {
+	        width: 0,
+	        height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
+    },
+    Pickerbox2:{
+        backgroundColor: 'white',
+        marginBottom: 20,
+        marginLeft: 20,
+        marginRight: 20,
+        shadowColor: "#000",
+        shadowOffset: {
+	        width: 0,
+	        height: 12,
+        },
+        shadowOpacity: 0.58,
+        shadowRadius: 16.00,
+        elevation: 24,
+    },
+    Btn:{
+        marginLeft: 20,
+        marginRight: 20,
+        borderRadius: 25
+    },
+    Toptxt:{
+        marginBottom: 40,
+        fontSize: 25,
+        fontWeight: 'bold'
+
     }
 });
+
+// if(this.state.info.temp > 35||this.state.info.wind > 1.6||this.state.info.humidity < 65){
