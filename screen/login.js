@@ -7,6 +7,10 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const {width:WIDTH}=Dimensions.get('window')
 export default class Loginscreen extends React.Component {
+    static navigationOptions =
+    {
+      header:false
+    };
     // constructor(props){
     //     super(props);
     //     this.state ={

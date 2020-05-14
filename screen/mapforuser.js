@@ -120,9 +120,9 @@ export default class Mapuser extends Component {
           </MapView>
 
 
-          <View style={{ flex: 1, paddingRight: 350 }}>
-            <TouchableOpacity onPress={() => { this.Refreshbutton() }}>
-              <Icon name={'refresh'} size={50} />
+          <View style={{ flex: 1, alignItems:'flex-end', marginTop:10 }}>
+            <TouchableOpacity style={{marginLeft:325}} onPress={() => { this.Refreshbutton() }}>
+              <Icon name={'refresh'} size={30} />
             </TouchableOpacity>
           </View>
         </View>

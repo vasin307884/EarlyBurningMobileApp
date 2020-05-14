@@ -49,7 +49,7 @@ getWeather(){
         <View style={styles.MainContainer}>
           <View style={styles.ShowTop}>
             <Title style={{justifyContent:'center'}}>{this.state.info.name}</Title>
-            <Image style={{width:120,height:120,justifyContent:'center', position:'relative'}}
+            <Image style={{width:100,height:50,justifyContent:'center', position:'relative'}}
             source={{uri:'http://openweathermap.org/img/w/'+this.state.info.icon+".png"}}
             />
           </View>
@@ -61,7 +61,7 @@ getWeather(){
             <View style={styles.Datacontainer2}>
             <Image source={require('../immg/Water.png')}
             style={styles.inputicon2}/>
-            <Title style={{color:'white'}}>ความชื้นในอากาศ : {this.state.info.humidity} %</Title>
+            <Title>ความชื้นในอากาศ : {this.state.info.humidity} %</Title>
             </View>
             <View style={styles.Datacontainer1}>
             <Image source={require('../immg/Wind.png')}
@@ -71,7 +71,7 @@ getWeather(){
             <View style={styles.Datacontainer2}>
             <Image source={require('../immg/State.png')}
             style={styles.inputicon2}/>
-            <Title style={{color:'white'}}>สถานะ : {this.state.info.desc}</Title>
+            <Title>สถานะ : {this.state.info.desc}</Title>
             </View>
         </View>
     );
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     borderRadius: 25,
     alignItems:'flex-end',
-    backgroundColor: '#ecffb3',
+    backgroundColor: 'white',
     shadowColor: "#000",
     shadowOffset: {
 	    width: 0,
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 100,
     borderRadius: 25,
-    backgroundColor: '#004d00',
+    backgroundColor: 'white',
     shadowColor: "#000",
     shadowOffset: {
 	    width: 0,

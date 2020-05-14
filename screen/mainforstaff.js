@@ -15,7 +15,9 @@ import Loginscreen from './login';
 export default class MainStaffScreen extends React.Component {
   static navigationOptions =
     {
-      title: 'ชิงเผา Application'
+      title: 'ชิงเผา Application',
+      headerLeft:false,
+      header:false
     };
   render() {
     return (

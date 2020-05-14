@@ -3,13 +3,15 @@ import { StyleSheet, View, Text, ImageComponent, Image } from 'react-native';
 import { Button } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Header } from 'react-native/Libraries/NewAppScreen';
 
 
 
 export default class Mainscreen extends React.Component {
     static navigationOptions =
     {
-      title: 'หน้าเริ่มต้น'
+      title: 'ชิงเผา application',
+      header:false
     };
     render() {
         return (

@@ -101,7 +101,7 @@ export default class Staffreq extends Component {
         <View style={{marginTop:15,
         marginLeft:30,
         marginRight:30,}}>
-        <Button title="ออกจากระบบ" onPress={this.logOut.bind(this)} />
+        <Button color="green" title="ออกจากระบบ" onPress={this.logOut.bind(this)} />
         </View>
         <View style={styles.container}>
         <View style={{marginBottom: 10}}>

@@ -36,11 +36,10 @@ const StackAppNavigator = createStackNavigator(
 {
   initialRouteName: "Main",
   defaultNavigationOptions: {
-    header:false,
     headerStyle: {
-      backgroundColor: "black",
+      backgroundColor: "white",
     },
-    headerTintColor: '#fff',
+    headerTintColor: 'black',
     headerTitleStyle: {
       fontWeight: 'bold',
       justifyContent:'center',

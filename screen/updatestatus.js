@@ -83,13 +83,13 @@ export default class UpdateScreen extends React.Component {
         return (
             <View style={styles.container}>
                 <View style={{ alignItems: 'center' }}>
-                    <Text style={styles.Toptxt}>รีเควสไอดี : {this.props.navigation.state.params.id}</Text>
+                    <Text style={styles.Toptxt}>Request ID : {this.props.navigation.state.params.id}</Text>
                 </View>
                 <View>
                     <Text style={styles.txtbrowse}>สถานะ : </Text>
                     <View style={styles.Pickerbox1}>
                     <Picker
-                        style={{color: 'white', fontWeight: 'bold'}}
+                        style={{fontWeight: 'bold'}}
                         selectedValue={this.state.ustatusValue}
                         onValueChange={(itemValue, itemIndex) => this.setState({ ustatusValue: itemValue })} >
 
@@ -102,7 +102,7 @@ export default class UpdateScreen extends React.Component {
                     <Text style={styles.txtbrowse}>สีของสถานะ : </Text>
                     <View style={styles.Pickerbox2}>
                     <Picker 
-                        style={{color: 'white', fontWeight: 'bold'}}
+                        style={{fontWeight: 'bold'}}
                         selectedValue={this.state.ucolor}
                         onValueChange={(itemValue, itemIndex) => this.setState({ ucolor: itemValue })} >
 
@@ -120,7 +120,7 @@ export default class UpdateScreen extends React.Component {
                 <Button
                     title="Update status"
                     onPress={() => {
-                        if(this.state.info.temp > 38||this.state.info.wind > 5||this.state.info.humidity < 2){
+                        if(this.state.info.temp > 90||this.state.info.wind > 90||this.state.info.humidity < 2){
                           alert("ไม่สามารถอัพเดทสถานะได้ในขณะนี้ กรุณาเช็คอุณหภูมิ,ความแรงลมและความชื้นอีกครั้ง");
                           return;
                         }
@@ -149,10 +149,10 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#261a0d'
+        // color: '#261a0d'
     },
     Pickerbox1:{
-        backgroundColor: '#59b300',
+        backgroundColor: 'white',
         marginBottom: 20,
         marginLeft: 20,
         marginRight: 20,
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
         elevation: 24,
     },
     Pickerbox2:{
-        backgroundColor: '#004d00',
+        backgroundColor: 'white',
         marginBottom: 20,
         marginLeft: 20,
         marginRight: 20,
@@ -187,7 +187,6 @@ const styles = StyleSheet.create({
     Toptxt:{
         marginBottom: 40,
         fontSize: 25,
-        color: '#004d00',
         fontWeight: 'bold'
 
     }
